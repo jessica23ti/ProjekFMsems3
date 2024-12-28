@@ -152,15 +152,14 @@
         });
     });
 </script>
-
-<script type="text/javascript">
+<script>
     $(document).ready(function() {
         // Tombol minus
         $('.btn-num-product-down').on('click', function() {
             var input = $(this).siblings('input.num-product');
             var value = parseInt(input.val()); // Ambil nilai saat ini
-            if (value > 0) {
-                input.val(value - 1); // Kurangi nilai 1 jika lebih besar dari 0
+            if (value > 1) { // Pastikan tidak kurang dari 1
+                input.val(value - 1); // Kurangi nilai
             }
         });
 
@@ -168,64 +167,22 @@
         $('.btn-num-product-up').on('click', function() {
             var input = $(this).siblings('input.num-product');
             var value = parseInt(input.val()); // Ambil nilai saat ini
-            input.val(value + 1); // Tambah nilai 1
+            input.val(value + 1); // Tambahkan nilai
         });
     });
 </script>
-<script type="text/javascript">
-    $(document).ready(function() {
-        // Ketika tombol "Add to cart" diklik
-        $('.js-addcart-detail').on('click', function() {
-            var id = $(this).data('id'); // ID produk
-            var nama = $(this).data('nama'); // Nama produk
-            var harga = $(this).data('harga'); // Harga produk
-            var quantity = parseInt($(this).closest('.size-204').find('input.num-product')
-                .val()); // Ambil jumlah produk dan pastikan dalam format angka
-
-            // Validasi jika quantity lebih dari 0
-            if (isNaN(quantity) || quantity <= 0) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Jumlah tidak valid!',
-                    text: 'Pastikan jumlah produk lebih dari 0.',
-                    showConfirmButton: true
-                });
-                return; // Hentikan eksekusi jika jumlah tidak valid
-            }
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            // Kirim data ke server menggunakan AJAX
-            $.ajax({
-                url: "{{ route('cart.add') }}", // Ganti dengan route yang sesuai
-                method: "POST",
-                data: {
-                    id: id,
-                    nama: nama,
-                    harga: harga,
-                    quantity: quantity
-                },
-                success: function(response) {
-                    // Ganti alert dengan SweetAlert2
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Produk berhasil ditambahkan!',
-                        text: 'Jumlah item di keranjang: ' + response.cart_count,
-                        showConfirmButton: false,
-                        timer: 1500,
-                        toast: true,
-                        position: 'top-end'
-                    });
-
-                    // Update tampilan jumlah produk di keranjang
-                    $('#cart-count').text(response.cart_count);
-                },
-
-            });
+<!-- SweetAlert2 Script -->
+<script>
+    @if (session('success'))
+        Swal.fire({
+            toast: true, // Mode toast untuk notifikasi kecil
+            position: "top-end", // Posisi di pojok kanan atas
+            icon: "success", // Ikon notifikasi
+            title: "{{ session('success') }}", // Pesan notifikasi
+            showConfirmButton: false, // Hilangkan tombol konfirmasi
+            timer: 1500, // Notifikasi otomatis menghilang setelah 1,5 detik
+            timerProgressBar: true // Menampilkan progress bar di bawah notifikasi
         });
-    });
+    @endif
 </script>
 @endsection

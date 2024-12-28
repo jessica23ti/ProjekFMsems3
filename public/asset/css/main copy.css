@@ -55,6 +55,7 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 .p-l-25.p-r-30.p-lr-0-lg.coy {
     box-shadow: #555 10px 10px 5px rgba(0, 0, 0, 0.2);
 }
+
 @font-face {
     font-family: Poppins-Regular;
     src: url('../fonts/Poppins/Poppins-Regular.ttf');

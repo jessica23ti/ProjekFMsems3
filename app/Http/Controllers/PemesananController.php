@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
+use App\Models\Pemesanan;
 use App\Models\Produk;
 use Illuminate\Http\Request;
 
@@ -16,55 +18,121 @@ class PemesananController extends Controller
     {
         return view('aboutUs');
     }
-    // public function add_chart(Request $request)
-    // {
+    public function kota($provinsi_id)
+    {
+        $curl = curl_init();
 
-    //     // Validasi data yang diterima
-    //     $validated = $request->validate([
-    //         'id' => 'required|', // Validasi bahwa id produk ada di tabel produk
-    //         'quantity' => 'required|integer', // Validasi jumlah produk (min 1)
-    //     ]);
+        // API untuk mengambil kota berdasarkan provinsi
+        curl_setopt_array($curl, [
+            CURLOPT_URL => 'https://api.rajaongkir.com/starter/city?&province=' . $provinsi_id,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_HTTPHEADER => ['key:a83772758c55b5e7ea48b40d11380c36'],
+        ]);
 
-    //     $product_Chart = [
-    //         'id' => $validated['id'], // Validasi bahwa id produk ada di tabel produk
-    //         'quantity' => $validated['quantity'], // Validasi jumlah produk (min 1)
-    //     ];
-    //     //     // Ambil user yang sedang login
-    //     $user = auth()->user();
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+        curl_close($curl);
 
-    //     // Cek apakah produk sudah ada di keranjang
-    //     $cartItem = Cart::where('user_id', $user->id)
-    //         ->where('product_id', $product_Chart['id'])
-    //         ->first();
+        if ($err) {
+            echo 'cURL Error #:' . $err;
+        } else {
+            $kota = json_decode($response, true);
+            if ($kota['rajaongkir']['status']['code'] == ' 200') {
+                echo "<option value='' >Pilih Kota</option>";
 
-    //     if ($cartItem) {
-    //         // Jika produk sudah ada, update jumlahnya
-    //         $cartItem->quantity += $product_Chart['quantity']; // Menambah quantity produk
-    //         $cartItem->save();
-    //     } else {
-    //         // Jika produk belum ada di keranjang, simpan item baru
-    //         Cart::create([
-    //             'user_id' => $user->id,
-    //             'product_id' => $product_Chart['id'],
-    //             'quantity' => $product_Chart['quantity'],
-    //         ]);
-    //     }
+                foreach ($kota['rajaongkir']['results'] as $kt) {
+                    echo "<option value='$kt[city_id]' >$kt[city_name]</option>";
+                }
+            }
+        }
+    }
 
-    //     //     // Hitung jumlah item di keranjang
-    //     //     $cartCount = Cart::where('user_id', $user->id)->sum('quantity');
 
-    //     //     // Kembalikan response berupa jumlah item di keranjang
-    //     //     // return response()->json(['cart_count' => $cartCount]);
-    //     // } catch (\Exception $e) {
-    //     //     // Tangkap exception jika terjadi error dan kembalikan pesan error
-    //     //     return response()->json(['error' => $e->getMessage()], 500);
-    //     // }
-    // }
+
+    public function Co()
+    {
+
+
+        // Mengambil data selected_items dari request
+        $selectedItems = request()->input('selected_items');
+        $selectedItemsArray = json_decode($selectedItems, true);
+
+        // Memastikan data adalah array
+        // Pastikan data sudah dalam bentuk array
+        if (is_array($selectedItemsArray)) {
+            // Ambil data cart berdasarkan id yang terpilih
+            $cart = Cart::whereIn('id', $selectedItemsArray)->get();
+
+            // Kirim data ke view
+            return view('checkOut', compact('cart'));
+        } else {
+            // Jika data tidak valid, bisa memberikan pesan error atau mengarahkan kembali
+            return redirect()->back()->with('error', 'Item yang dipilih tidak valid.');
+        }
+    }
+    public function add_chart(Request $request)
+    {
+        // Cek apakah produk sudah ada di keranjang
+
+        $product_Chart = [
+            'id' => $request->id, // Validasi bahwa id produk ada di tabel produk
+            'quantity' => $request->quantity, // Validasi jumlah produk (min 1)
+        ];
+        $cartItem = Cart::where('product_id', $product_Chart['id'])
+            ->first();
+        // dd($request->id);
+        if ($cartItem) {
+            // Jika produk sudah ada, update jumlahnya
+            $cartItem->quantity = $request->quantity; // Menambah quantity produk
+            $cartItem->user_id = 1;
+            $cartItem->product_id = $request->id;
+            $cartItem->save();
+            session()->flash('success', 'Data berhasil Diupdate di keranjang.');
+        } else {
+            // Jika produk belum ada di keranjang, simpan item baru
+            Cart::create([
+                'user_id' => 1,
+                'product_id' => $product_Chart['id'],
+                'quantity' => $product_Chart['quantity'],
+            ]);
+            session()->flash('success', 'Data berhasil dimasukkan ke Keranjang.');
+        }
+        return redirect()->route('detailProduct', $request->id);
+        // //     // Ambil user yang sedang login
+        // $user = auth()->user();
+
+
+
+
+
+        //     // Hitung jumlah item di keranjang
+        //     $cartCount = Cart::where('user_id', $user->id)->sum('quantity');
+
+
+    }
 
     public function detail($id)
     {
         $produk = Produk::where('id', $id)->first();
         return view('product_detail', compact('produk'));
+    }
+    public function CartUpdate(Request $request)
+    {
+        $quantities = $request->input('quantity');
+
+        foreach ($quantities as $cartId => $quantity) {
+            $cart = Cart::find($cartId);
+            if ($cart) {
+                $cart->quantity = $quantity;
+                $cart->save();
+            }
+        }
+        return redirect()->route('cartCustomer')->with('success', 'Keranjang berhasil diperbarui.');
     }
     public function  Contact()
     {
@@ -72,7 +140,17 @@ class PemesananController extends Controller
     }
     public function  cart()
     {
-        return view('cart');
+        $cart = Cart::with('produk.images') // Eager loading untuk relasi produk dan gambar
+            ->get(); // Mengambil semua data keranjang
+
+        return view('cart', compact('cart'));
+    }
+    public function  deleteCart(Request $request, String $id)
+    {
+        $cart = Cart::with('produk')->findOrFail($id);
+        $cart->delete();
+        session()->flash('success', 'Data berhasil dihapus di keranjang.');
+        return redirect()->route('cartCustomer');
     }
 
     /**
@@ -86,10 +164,7 @@ class PemesananController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        //
-    }
+    public function store(Request $request) {}
 
     /**
      * Display the specified resource.

@@ -6,16 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pemesanan extends Model
 {
-    protected $fillable = [
-        'user_id',
-        'product_id',
-        'total_item_pesanan',
-        'total_biaya',
-        'status_pesan',
-        'shipping_address',
-        'payment_method',
-        'tanggal_pemesanan'
-    ];
+    protected $guarded;
 
     public function user()
     {

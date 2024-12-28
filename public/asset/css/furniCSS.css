@@ -5,18 +5,16 @@
 * License: https://creativecommons.org/licenses/by/3.0/
 */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
 body {
     overflow-x: hidden;
     position: relative;
-}
-
-body {
     font-family: 'Inter', sans-serif;
     font-weight: 400;
     line-height: 28px;
     color: #6a6a6a;
     font-size: 14px;
-    background-color: #eff2f1;
+    background-color: #ffffff;
 }
 
 a {
@@ -168,7 +166,7 @@ a.more {
 }
 .hero p {
     color: rgb(255, 255, 255);
-    margin-botom: 30px;
+    margin-bottom: 30px;
 }
 .hero .hero-img-wrap {
     position: relative;
@@ -640,9 +638,9 @@ a.more {
     background-color: #3b5d50;
 }
 
-.before-footer-section {
-    padding: 7rem 0 12rem 0 !important;
-}
+    .before-footer-section {
+        padding: 7rem 0 12rem 0 !important;
+    }
 
 .blog-section {
     padding: 7rem 0 12rem 0;
@@ -796,7 +794,8 @@ a.more {
 }
 
 .untree_co-section {
-    padding: 7rem 0;
+    padding: 0rem 0;
+    
 }
 
 .form-control {

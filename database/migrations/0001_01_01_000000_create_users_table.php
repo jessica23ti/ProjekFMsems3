@@ -17,8 +17,6 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('no_hp');
             $table->string('Role')->default('User');
-            $table->string('alamat');
-            $table->integer('point_reward')->nullable()->default(null);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

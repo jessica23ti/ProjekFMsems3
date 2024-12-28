@@ -12,7 +12,7 @@
     <!-- ICon : -->
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link href="https://cdn.jsdelivr.net/npm/tiny-slider@2.9.3/dist/tiny-slider.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -157,24 +157,21 @@
                 </div>
 
             </div>
-
-
-
         </div>
         </div>
 
         </div>
     </footer>
     <!-- End Footer Section -->
-
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/tiny-slider@2.9.3/dist/tiny-slider.min.js"></script>
     <script src="{{ asset('asset/js/custom.js') }}"></script> <!-- Tetap menggunakan file lokal -->
     <script src="{{ asset('asset/js/mainFurni.js') }}"></script> <!-- Tetap menggunakan file lokal -->
     <script src="{{ asset('asset/js/map-custom.js') }}"></script> <!-- Tetap menggunakan file lokal -->
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-
+    @yield('script')
 
 </body>
 
