@@ -17,11 +17,8 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $fillable = ['name', 'username', 'email', 'password', 'no_hp', 'Role', 'alamat',  'email_verified_at', 'point_reward'];
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -45,4 +42,20 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function produkDijual()
+    {
+        return $this->hasMany(Produk::class, 'user_id', 'id');
+    }
+    public function pemesanans()
+    {
+        return $this->belongsToMany(Produk::class, 'pemesanan', 'user_id', 'product_id')
+            ->withPivot('total_item_pesanan', 'total_biaya', 'status_pesan', 'shipping_address', 'payment_method', 'tanggal_pemesanan')
+            ->withTimestamps();
+    }
+    // public function Review()
+    // {
+    //     return $this->belongsToMany(Produk::class, 'Review', 'user_id', 'product_id')
+    //         ->withPivot('review', 'rating')
+    //         ->withTimestamps();
+    // }
 }
