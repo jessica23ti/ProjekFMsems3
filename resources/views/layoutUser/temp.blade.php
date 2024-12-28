@@ -37,11 +37,11 @@
 
             <div class="collapse navbar-collapse" id="navbarsFurni">
                 <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-                    <li class="nav-item {{ Request::is('pemesanan') ? 'active' : '' }}">
-                        <a class="nav-link" href="/pemesanan">Home</a>
+                    <li class="nav-item {{ Request::is('/') ? 'active' : '' }}">
+                        <a class="nav-link" href="/">Home</a>
                     </li>
-                    <li class="nav-item {{ Request::routeIs('shopCustomer') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('shopCustomer') }}">Shop</a>
+                    <li class="nav-item {{ Request::routeIs('Produk.index') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('Produk.index') }}">Shop</a>
                     </li>
                     <li class="nav-item {{ Request::routeIs('AboutUsCustomer') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ route('AboutUsCustomer') }}">About us</a>
@@ -77,8 +77,8 @@
                         <p class="mb-4">Dukung pengrajin Indonesia, temukan karya terbaik dari <br>UMKM Indonesia
                             Pelosok.
                         </p>
-                        <p><a href="{{ route('shopCustomer') }}" class="btn btn-secondary me-2">Shop Now</a><a
-                                href="{{ route('shopCustomer') }}" class="btn btn-white-outline">Explore</a></p>
+                        <p><a href="{{ route('Produk.index') }}" class="btn btn-secondary me-2">Shop Now</a><a
+                                href="{{ route('Produk.index') }}" class="btn btn-white-outline">Explore</a></p>
                     </div>
                 </div>
                 <div class="col-lg-7">
@@ -147,7 +147,7 @@
                     <div class="row links-wrap">
                         <div class="col-6 col-sm-6 col-md-3">
                             <ul class="list-unstyled">
-                                <li><a href="#">Shop</a></li>
+                                <li><a href="{{ route('Produk.index') }}">Shop</a></li>
                                 <li><a href="#">About us</a></li>
                                 <li><a href="#">Contact us</a></li>
 
@@ -168,12 +168,13 @@
     <!-- End Footer Section -->
 
 
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/tiny-slider.js"></script>
-    <script src="js/custom.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/map-custom.js"></script>
-    <script src="js/slick-custom.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tiny-slider@2.9.3/dist/tiny-slider.min.js"></script>
+    <script src="{{ asset('asset/js/custom.js') }}"></script> <!-- Tetap menggunakan file lokal -->
+    <script src="{{ asset('asset/js/mainFurni.js') }}"></script> <!-- Tetap menggunakan file lokal -->
+    <script src="{{ asset('asset/js/map-custom.js') }}"></script> <!-- Tetap menggunakan file lokal -->
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
 
 </body>
 

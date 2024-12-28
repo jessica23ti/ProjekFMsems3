@@ -10,7 +10,6 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/shop', [PemesananController::class, 'shop'])->name('shopCustomer');
 Route::get('/aboutUs', [PemesananController::class, 'AboutUs'])->name('AboutUsCustomer');
 Route::get('/ContactUs', [PemesananController::class, 'Contact'])->name('ContactCustomer');
 Route::get('/detail/{id}', [PemesananController::class, 'detail'])->name('detailProduct');

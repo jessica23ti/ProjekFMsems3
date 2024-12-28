@@ -9,7 +9,7 @@
     <meta name="description" content="" />
     <meta name="keywords" content="bootstrap, bootstrap4" />
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
     <link href="https://cdn.jsdelivr.net/npm/tiny-slider@2.9.3/dist/tiny-slider.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -44,8 +44,8 @@
                     <li class="nav-item {{ Request::is('pemesanan') ? 'active' : '' }}">
                         <a class="nav-link" href="/pemesanan">Home</a>
                     </li>
-                    <li class="nav-item {{ Request::routeIs('shopCustomer') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('shopCustomer') }}">Shop</a>
+                    <li class="nav-item {{ Request::routeIs('Produk.index') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('Produk.index') }}">Shop</a>
                     </li>
                     <li class="nav-item {{ Request::routeIs('AboutUsCustomer') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ route('AboutUsCustomer') }}">About us</a>
@@ -57,7 +57,7 @@
 
                 <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
                     {{-- <li><a class="nav-link" href="{{ route('login') }}"><img
-                                src="{{ asset('furni-1.0.0/images/user.svg') }}"></a>
+                                src="{{ asset('asset/images/user.svg') }}"></a>
                     </li> --}}
                     <li>
                         <a class="nav-link" href="{{ route('cartCustomer') }}">
@@ -81,7 +81,7 @@
         <div class="container relative">
 
             <div class="sofa-img">
-                <img src="{{ asset('furni-1.0.0/images/sofa.png') }}" alt="Image" class="img-fluid">
+                <img src="{{ asset('asset/images/sofa.png') }}" alt="Image" class="img-fluid">
             </div>
 
             <div class="row">
@@ -131,7 +131,7 @@
                     <div class="row links-wrap">
                         <div class="col-6 col-sm-6 col-md-3">
                             <ul class="list-unstyled">
-                                <li><a href="#">Shop</a></li>
+                                <li><a href="{{ route('Produk.index') }}">Shop</a></li>
                                 <li><a href="#">About us</a></li>
                                 <li><a href="#">Contact us</a></li>
 
@@ -153,13 +153,13 @@
 
     <!-- SweetAlert2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="{{ asset('furni-1.0.0/js/bootstrap.bundle.min.js') }} "></script>
-    <script src="{{ asset('furni-1.0.0/js/tiny-slider.js') }}"></script>
-    <script src="{{ asset('furni-1.0.0/js/custom.js') }}"></script>
-    <script src="{{ asset('furni-1.0.0/js/main.js') }}"></script>
-    <script src="{{ asset('furni-1.0.0/js/map-custom.js') }}"></script>
-    <script src="{{ asset('furni-1.0.0/js/slick-custom.js') }}"></script>
-    <script src="{{ asset('js/shop.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tiny-slider@2.9.3/dist/tiny-slider.min.js"></script>
+    <script src="{{ asset('asset/js/custom.js') }}"></script> <!-- Tetap menggunakan file lokal -->
+    <script src="{{ asset('asset/js/mainFurni.js') }}"></script> <!-- Tetap menggunakan file lokal -->
+    <script src="{{ asset('asset/js/map-custom.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script src="{{ asset('asset/js/shop.js') }}"></script> <!-- Tetap menggunakan file lokal -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
     @yield('script')

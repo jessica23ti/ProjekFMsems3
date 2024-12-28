@@ -6,6 +6,7 @@ use App\Models\Produk;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class ProdukController extends Controller
 {
@@ -17,8 +18,8 @@ class ProdukController extends Controller
         if (request()->wantsJson()) {
             return response()->json('hallo F');
         }
-        $data['produk'] = Produk::latest()->paginate(10);
-        return view('Admin.admin_index', $data);
+        $produk = Produk::with('images')->get(); // Mengambil semua produk dan gambar terkait
+        return view('shop', compact('produk'));
     }
     public function loadMore(Request $request)
     {
@@ -170,7 +171,7 @@ class ProdukController extends Controller
         session()->flash('success', 'Data berhasil disimpan.');
 
         // Mengalihkan kembali ke halaman daftar produk
-        return redirect()->route('Produk.index');
+        return redirect('/AdminPage');
     }
 
 
@@ -191,7 +192,6 @@ class ProdukController extends Controller
             // Menangani jika terjadi error dalam penghapusan
             session()->flash('error', 'Data produk gagal dihapus.');
         }
-
-        return redirect()->route('Produk.index');
+        return redirect('/AdminPage');
     }
 }

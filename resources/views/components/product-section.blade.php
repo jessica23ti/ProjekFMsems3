@@ -8,7 +8,7 @@
                  <h2 class="mb-4 section-title">Dibuat dengan Cinta oleh Pengrajin UMKM Indonesia</h2>
                  <p class="mb-4">Kami bangga mendukung produk lokal dari pengrajin Indonesia. Setiap produk dibuat
                      dengan ketelitian dan penuh dedikasi untuk kualitas yang terbaik.</p>
-                 <p><a href="{{ route('shopCustomer') }}" class="btn">Jelajahi Produk Kami</a></p>
+                 <p><a href="{{ route('Produk.index') }}" class="btn">Jelajahi Produk Kami</a></p>
              </div>
              <!-- End Column 1 -->
 

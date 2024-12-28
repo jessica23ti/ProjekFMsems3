@@ -10,21 +10,8 @@ class PemesananController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
+    public function index() {}
 
-        if (request()->wantsJson()) {
-            return response()->json('hallo F');
-        }
-        return view('index');
-    }
-    public function shop()
-    {
-        $produk = Produk::with('images')->get(); // Mengambil semua produk dan gambar terkait
-        // Ganti $id dengan ID yang sesuai
-        // dd($produk1);
-        return view('shop', compact('produk'));
-    }
     public function AboutUs()
     {
         return view('aboutUs');
