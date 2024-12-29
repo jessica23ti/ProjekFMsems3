@@ -14,6 +14,7 @@ Route::get('/', function () {
 Route::get('/aboutUs', [PemesananController::class, 'AboutUs'])->name('AboutUsCustomer');
 Route::get('/kota/{provinsi_id}', [PemesananController::class, 'kota'])->name('kota');
 Route::post('/checkout', [PemesananController::class, 'Co'])->name('checkout');
+Route::post('/hitungOngkir', [PemesananController::class, 'hitungOngkir'])->name('hitungOngkir');
 Route::get('/ContactUs', [PemesananController::class, 'Contact'])->name('ContactCustomer');
 Route::get('/detail/{id}', [PemesananController::class, 'detail'])->name('detailProduct');
 Route::get('/cartView', [PemesananController::class, 'cart'])->name('cartCustomer');

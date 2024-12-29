@@ -49,7 +49,10 @@
                                 <td> Ukuran : {{ $produk->ukuran }}<br></td>
                             </tr>
                             <tr>
-                                <td> Diskon : {{ $produk->diskon }}</td>
+                                <td> Diskon : {{ $produk->diskon }} %</td>
+                            </tr>
+                            <tr>
+                                <td> Berat (Kg) : {{ $produk->berat }}</td>
                             </tr>
                         </table>
 

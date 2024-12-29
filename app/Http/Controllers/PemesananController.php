@@ -6,6 +6,8 @@ use App\Models\Cart;
 use App\Models\Pemesanan;
 use App\Models\Produk;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
+
 
 class PemesananController extends Controller
 {
@@ -18,6 +20,8 @@ class PemesananController extends Controller
     {
         return view('aboutUs');
     }
+    public function bayar(Request $request) {}
+
     public function kota($provinsi_id)
     {
         $curl = curl_init();
@@ -52,29 +56,70 @@ class PemesananController extends Controller
         }
     }
 
-
-
-    public function Co()
+    public function hitungOngkir(Request $request)
     {
+        // Memastikan input 'kota' dan 'berat' tersedia
+        if ($request->isMethod('post')) {
+            $postFields = "origin=457" .
+                "&destination=" . $request->input('kota') .
+                "&weight=" . $request->input('berat') .
+                "&courier=" . $request->input('ekspidisi');
+
+            // Inisialisasi CURL
+            $curl = curl_init();
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => "https://api.rajaongkir.com/starter/cost",
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 30,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "POST",
+                CURLOPT_POSTFIELDS => $postFields,
+                CURLOPT_HTTPHEADER => array(
+                    "content-type: application/x-www-form-urlencoded",
+                    "key: a83772758c55b5e7ea48b40d11380c36"
+                ),
+            ));
+
+            $response = curl_exec($curl);
+            $err = curl_error($curl);
+
+            curl_close($curl);
+
+            if ($err) {
+                // Menampilkan error jika ada
+                echo "cURL Error #:" . $err;
+            } else {
+                $data['ongkir'] = $response;
+                return view('checkOut', $data);
+            }
+        }
+    }
 
 
+    public function Co(Request $request)
+    {
         // Mengambil data selected_items dari request
         $selectedItems = request()->input('selected_items');
         $selectedItemsArray = json_decode($selectedItems, true);
 
         // Memastikan data adalah array
-        // Pastikan data sudah dalam bentuk array
         if (is_array($selectedItemsArray)) {
             // Ambil data cart berdasarkan id yang terpilih
             $cart = Cart::whereIn('id', $selectedItemsArray)->get();
 
+            // Mengambil ongkir dari session
+            $ongkir = session('ongkir'); // Ambil data ongkir dari session
+
             // Kirim data ke view
-            return view('checkOut', compact('cart'));
+            return view('checkOut', compact('cart', 'ongkir'));
         } else {
-            // Jika data tidak valid, bisa memberikan pesan error atau mengarahkan kembali
+            // Jika data tidak valid, memberikan pesan error atau mengarahkan kembali
             return redirect()->back()->with('error', 'Item yang dipilih tidak valid.');
         }
     }
+
     public function add_chart(Request $request)
     {
         // Cek apakah produk sudah ada di keranjang

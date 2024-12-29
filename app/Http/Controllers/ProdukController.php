@@ -54,6 +54,7 @@ class ProdukController extends Controller
             'jumlah_stok' => 'required|integer|min:1',
             'harga' => 'required|numeric|min:0',
             'diskon' => 'nullable|numeric|min:0|max:100',
+            'berat' => 'nullable|numeric|min:0|max:100',
             'images' => 'required|array',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);

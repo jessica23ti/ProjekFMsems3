@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('jumlah_stok')->default(0);
             $table->integer('harga');
             $table->integer('diskon')->default(0);
+            $table->integer('berat');
             $table->timestamps();
             // Relasi ke tabel users
 

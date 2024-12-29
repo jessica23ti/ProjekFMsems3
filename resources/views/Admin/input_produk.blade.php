@@ -57,6 +57,11 @@
                                 value="{{ old('diskon') }}" />
                         </div>
                         <div class="col-6 col-sm-4">
+                            <label for="exampleFormControlInput1" class="form-label">Berat (kg)</label>
+                            <input type="number" class="form-control" id="exampleFormControlInput1" name="berat"
+                                value="{{ old('berat') }}" />
+                        </div>
+                        <div class="col-6 col-sm-4">
                             <label for="productImages" class="form-label">Upload Gambar Produk</label>
                             <input type="file" name="images[]" id="productImages" class="form-control" multiple>
                         </div>
