@@ -64,14 +64,15 @@
                     // Mengambil ID produk dari cart dan menyimpannya dalam array
                     @foreach ($cart as $kiw)
                         cartData.push({
-                            id: '{{ $kiw->id }}',
-                            harga: '{{ $kiw->produk->harga }}',
-                            name: '{{ $kiw->produk->nama }}',
-                            total: '{{ $kiw->produk->harga * $kiw->quantity }}',
-                            quantity: '{{ $kiw->quantity }}'
+                            id: {!! json_encode($kiw->id) !!}, // Gunakan json_encode agar data literal dimasukkan dengan benar
+                            harga: {!! json_encode($kiw->produk->harga) !!},
+                            name: {!! json_encode($kiw->produk->nama) !!},
+                            total: {!! json_encode($kiw->produk->harga * $kiw->quantity) !!},
+                            quantity: {!! json_encode($kiw->quantity) !!}
                         });
                     @endforeach
 
+                    // Kirim data cart melalui AJAX
                     $.ajax({
                         url: '{{ route('Payment') }}', // URL ke controller untuk memproses order
                         method: 'POST',
@@ -106,6 +107,7 @@
                 });
             });
         </script>
+
 
 
 

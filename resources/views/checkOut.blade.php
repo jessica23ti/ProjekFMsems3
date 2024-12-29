@@ -96,6 +96,8 @@
                             <input type="text" class="form-control"
                                 placeholder="Apartment, suite, unit etc. (optional)" name="optional">
                         </div>
+                      
+
 
                         <div class="form-group row">
                             <div class="col-md-6">
@@ -144,7 +146,13 @@
                                             <p class='card-title'>Estimasi Pengiriman : " .
                                         $by['cost'][0]['etd'] .
                                         "</p> 
-                                     <a href='#' class='btn btn-black btn-sm '>Bayar</a>
+                                                 <a href='#' 
+                                                   class='btn btn-black btn-sm ongkir-option' 
+                                                   data-ongkir-value='" .
+                                        $by['cost'][0]['value'] .
+                                        "'>
+                                                   Bayar
+                                                </a>
                                      <a href='{{ route('Produk.index') }}' class='btn btn-black btn-sm '>Cancel</a>
                                         </div>
                                     </div>
@@ -178,5 +186,43 @@
             .catch(error => console.error('Error:', error)); // Menangani error jika ada
     });
 </script>
+<script>
+    $(document).ready(function() {
+        // Event listener untuk tombol ongkir
+        $('.ongkir-option').on('click', function(e) {
+            e.preventDefault(); // Mencegah default action tombol
 
+            // Ambil nilai ongkir dari atribut data-ongkir-value
+            var ongkirValue = $(this).data('ongkir-value');
+
+         
+            // Kirim data ongkir dan selectedId ke server menggunakan AJAX
+            $.ajax({
+                url: "{{ route('PaymentUpdate') }}", // Route ke controller Anda
+                type: "POST",
+                data: {
+                    _token: "{{ csrf_token() }}", // Token CSRF untuk keamanan
+                    ongkir: ongkirValue, // Kirim nilai ongkir yang diambil
+                 
+                },
+                success: function(response) {
+                    // Tampilkan respons dari server jika berhasil
+                    console.log(response); // Debugging
+                    alert("Ongkir berhasil diproses: Rp" + ongkirValue);
+                },
+                error: function(xhr, status, error) {
+                    // Menampilkan pesan error jika terjadi masalah dengan request
+                    console.log("Error details:", error);
+                    console.log("Status:", status);
+                    console.log("Response:", xhr.responseText);
+                    console.error("Terjadi kesalahan: " + error);
+                }
+            });
+
+            // Tambahkan efek visual pada tombol yang dipilih
+            $('.ongkir-option').removeClass('selected'); // Menghapus kelas selected pada tombol lain
+            $(this).addClass('selected'); // Menambahkan kelas selected pada tombol yang diklik
+        });
+    });
+</script>
 @endsection

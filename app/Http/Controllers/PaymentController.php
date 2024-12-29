@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\SelectedItem;
-use Midtrans\Config;
 use Midtrans\Snap;
+use Midtrans\Config;
+use App\Models\SelectedItem;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
 
 class PaymentController extends Controller
 {
@@ -32,37 +34,76 @@ class PaymentController extends Controller
 
     //         // Lakukan sesuatu dengan array $selectedItemsArray
     //     }
+    public function processOrderUpdate(Request $request)
+    {
+        // Ambil ongkir dari request
+        $ongkir = $request->input('ongkir');
+
+        // Cari user yang sedang login
+        // $user = Auth::user();
+
+        // Cari semua selectedID yang terkait dengan user yang sedang login
+        // Misalkan tabel 'orders' memiliki relasi dengan tabel 'users' dan menyimpan selectedID ddddddd==> where('user_id', $user->id)
+        $orders = SelectedItem::whereNotNull('selectedItems')  // Pastikan ada selected_id
+            ->get(); // Mengambil semua data order yang ada
+
+        // Update ongkir untuk setiap order yang ditemukan
+        foreach ($orders as $order) {
+            $order->ongkir = $ongkir;  // Atur ongkir baru
+            $order->save();  // Simpan perubahan
+        }
+
+        // Kembalikan response dengan pesan
+        return response()->json([
+            'message' => 'Your order has been successfully processed! Ongkir updated for selected orders.',
+        ]);
+    }
     public function processOrder(Request $request)
     {
         // Mendapatkan data produk yang dipilih dari request
-        $cartData = $request->input('cart'); // Pastikan nama parameter sesuai dengan yang dikirimkan
+        $cartData = $request->input('cart'); // Data keranjang yang dikirim melalui request
+
+
+
+        // Inisialisasi array untuk menyimpan ID
+        $orderIds = [];
 
         if ($cartData) {
-            // Proses data produk yang dipilih dan simpan ke database
+            // Proses setiap item dalam keranjang
             foreach ($cartData as $item) {
-                // Hitung total harga produk (harga per item * quantity)
-                // Simpan data produk yang dipilih ke dalam tabel selected_items
-                SelectedItem::create([
-                    'selectedItems' => $item['id'],  // Nama produk (bisa disesuaikan)
-                    'quantity' => $item['quantity'],  // Jumlah produk
-                    'TotalHarga' => $item['total'],  // Total harga (harga * quantity)
-                    'harga' => $item['harga'],  // Total harga (harga * quantity)
-                ]);
+                // Debugging untuk melihat item yang diproses
+
+
+                // Simpan atau perbarui data dengan updateOrCreate
+                $selectedItem = SelectedItem::updateOrCreate(
+                    ['selectedItems' => $item['id']], // Kondisi untuk mencari data
+                    [
+                        'quantity' => $item['quantity'],  // Update jumlah produk
+                        'TotalHarga' => $item['total'],   // Update total harga
+                        'harga' => $item['harga'],        // Update harga per item
+                    ]
+                );
+
+                // Menambahkan ID ke dalam array orderIds
+                $orderIds[] = $item['id'];
             }
 
-            // Mengembalikan response sukses dengan redirect_url
+            // Debugging untuk melihat array orderIds sebelum return
+
+
+            // Mengembalikan response sukses dengan URL redirect
             return response()->json([
-                'message' => 'Your order has been successfully placed!',
-                'redirect_url' => route('ViewCheckout') // Ganti dengan route yang sesuai
+                'message' => 'Your order has been successfully processed!',
+                'redirect_url' => route('ViewCheckout', ['selectedID' => implode(',', $orderIds)]), // Menggabungkan ID menjadi string dan menambahkannya ke URL
             ]);
-            // } else {
-            //     // Jika tidak ada produk yang dipilih, mengirimkan response error
-            //     return response()->json([
-            //         'message' => 'No items selected.',
-            //     ], 400); // Mengirim response error dengan status 400 jika tidak ada produk yang dipilih
-            // }
+        } else {
+            // Jika tidak ada data keranjang, kembalikan error
+            return response()->json([
+                'message' => 'No items selected.',
+            ], 400); // Status 400 untuk error
         }
     }
+
 
 
 

@@ -26,6 +26,7 @@ Route::post('/cart', [PemesananController::class, 'add_chart'])->name('cart.add'
 Route::post('/delete/{id}', [PemesananController::class, 'deleteCart'])->name('cart.delete');
 Route::post('/Update', [PemesananController::class, 'CartUpdate'])->name('cart.update');
 Route::post('/Payment', [PaymentController::class, 'processOrder'])->name('Payment');
+Route::post('/PaymentUpdate', [PaymentController::class, 'processOrderUpdate'])->name('PaymentUpdate');
 Route::resource('/AdminPage', AdminController::class);
 Route::resource('/Produk', ProdukController::class);
 Route::resource('/Kategori', CategoryController::class);
