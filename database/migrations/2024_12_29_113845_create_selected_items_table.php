@@ -13,12 +13,14 @@ return new class extends Migration
     {
         Schema::create('selected_items', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->string('selectedItems');
             $table->integer('TotalHarga');
             $table->integer('harga');
             $table->integer('quantity');
             $table->integer('ongkir')->default(0);
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
