@@ -57,7 +57,6 @@
                                     @endphp
                                 </select>
                             </div>
-
                             <div class="col-md-6">
                                 <label for="kota" class="text-black">Kota <span class="text-danger">*</span></label>
                                 <select id="kota" class="form-control" name="kota">
@@ -87,14 +86,12 @@
                                 </select>
                             </div>
                         </div>
-
                         <div class="form-group">
                             <label for="c_address" class="text-black">Shipping Address <span
                                     class="text-danger">*</span></label>
                             <input type="text" class="form-control" id="c_address" name="c_address"
                                 placeholder="Street address">
                         </div>
-
                         <div class="mt-3 form-group">
                             <input type="text" class="form-control"
                                 placeholder="Apartment, suite, unit etc. (optional)" name="optional">
@@ -127,29 +124,32 @@
                 <h2 class="mb-3 text-black h3">Data Ongkir</h2>
                 <div class="row">
                     @php
-                        $biaya = json_decode($ongkir, true);
-                        if ($biaya['rajaongkir']['status']['code'] == 200) {
-                            foreach ($biaya['rajaongkir']['results'][0]['costs'] as $by) {
-                                echo "
+                        if (isset($ongkir)) {
+                            $biaya = json_decode($ongkir, true);
+                            if ($biaya['rajaongkir']['status']['code'] == 200) {
+                                foreach ($biaya['rajaongkir']['results'][0]['costs'] as $by) {
+                                    echo "
                                 <div class='col-sm-12 mb-3'>
                                     <div class='card'>
                                         <div class='card-body'>
                                             <h5 class='card-title'>" .
-                                    $by['service'] .
-                                    "</h5>
+                                        $by['service'] .
+                                        "</h5>
                                             <p class='card-text'>" .
-                                    $by['description'] .
-                                    "</p>
-                                            <p class='card-text'>Rp." .
-                                    number_format($by['cost'][0]['value'], 0, ',', '.') .
-                                    "</p>
+                                        $by['description'] .
+                                        "</p>
+                                            <p class='card-text'>Rp" .
+                                        number_format($by['cost'][0]['value'], 0, ',', '.') .
+                                        "</p>
                                             <p class='card-title'>Estimasi Pengiriman : " .
-                                    $by['cost'][0]['etd'] .
-                                    "</p> 
-                                     <a href='#' class='btn btn-primary'>Bayar</a>
+                                        $by['cost'][0]['etd'] .
+                                        "</p> 
+                                     <a href='#' class='btn btn-black btn-sm '>Bayar</a>
+                                     <a href='{{ route('Produk.index') }}' class='btn btn-black btn-sm '>Cancel</a>
                                         </div>
                                     </div>
                                 </div>";
+                                }
                             }
                         }
                     @endphp
@@ -178,4 +178,5 @@
             .catch(error => console.error('Error:', error)); // Menangani error jika ada
     });
 </script>
+
 @endsection

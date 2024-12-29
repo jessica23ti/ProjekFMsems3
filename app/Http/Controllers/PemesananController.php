@@ -20,6 +20,10 @@ class PemesananController extends Controller
     {
         return view('aboutUs');
     }
+    public function ViewCheckout()
+    {
+        return view('checkOut');
+    }
     public function bayar(Request $request) {}
 
     public function kota($provinsi_id)
@@ -103,17 +107,12 @@ class PemesananController extends Controller
         // Mengambil data selected_items dari request
         $selectedItems = request()->input('selected_items');
         $selectedItemsArray = json_decode($selectedItems, true);
-
         // Memastikan data adalah array
         if (is_array($selectedItemsArray)) {
             // Ambil data cart berdasarkan id yang terpilih
             $cart = Cart::whereIn('id', $selectedItemsArray)->get();
-
-            // Mengambil ongkir dari session
-            $ongkir = session('ongkir'); // Ambil data ongkir dari session
-
             // Kirim data ke view
-            return view('checkOut', compact('cart', 'ongkir'));
+            return view('bayar', compact('cart'));
         } else {
             // Jika data tidak valid, memberikan pesan error atau mengarahkan kembali
             return redirect()->back()->with('error', 'Item yang dipilih tidak valid.');
