@@ -36,7 +36,7 @@
                                     @endforeach
                                 @endif
                                 <tr>
-                                    <td class="font-weight-bold text-black"><strong>Cart Subtotal</strong></td>
+                                    <td class="font-weight-bold text-black"><strong> Subtotal</strong></td>
                                     <td class="text-black">{{ $subTotal }}</td>
                                 </tr>
                             </tbody>

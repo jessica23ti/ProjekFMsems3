@@ -39,6 +39,11 @@ class PaymentController extends Controller
     //     }
     public function getThanku()
     {
+        $userID = Auth::id();
+        $pemesanan_id = Pemesanan::where('user_id',   $userID)->first();
+
+        $pemesanan_id->status_pesan = 'sukses';
+        $pemesanan_id->save();
         return view('thankYou');
     }
     public function processOrderUpdate(Request $request)
