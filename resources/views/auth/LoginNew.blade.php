@@ -61,8 +61,11 @@
                         @enderror
                     </div>
 
-                    <div class="text-right">
+                    {{-- <div class="text-right">
                         <a href="{{ route('password.request') }}">Forgot password?</a>
+                    </div> --}}
+                    <div class="text-right">
+                        <a href="{{ route('register.create') }}">Dont Have Account ?</a>
                     </div>
 
                     <div class="container-login100-form-btn">

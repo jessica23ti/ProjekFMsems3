@@ -7,7 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Produk extends Model
 {
     protected $fillable = ['nama', 'deskripsi', 'jumlah_stok', 'harga', 'diskon', 'kategori_id', 'ukuran', 'berat'];
-
+    public function order()
+    {
+        return $this->belongsToMany(Pemesanan::class);
+    }
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -21,11 +24,9 @@ class Produk extends Model
     {
         return $this->hasMany(ImageProduk::class, 'product_id');
     }
-    public function pemesanans()
+    public function pemesanan()
     {
-        return $this->belongsToMany(User::class, 'pemesanan', 'product_id', 'user_id')
-            ->withPivot('total_item_pesanan', 'total_biaya', 'status_pesan', 'shipping_address', 'payment_method', 'tanggal_pemesanan')
-            ->withTimestamps();
+        return $this->belongsToMany(Pemesanan::class, 'order_products', 'product_id', 'order_id');
     }
     // public function review()
     // {

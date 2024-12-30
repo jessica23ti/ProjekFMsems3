@@ -8,6 +8,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PemesananController;
 use App\Http\Controllers\Auth\EmailVerificationController;
+use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
 
@@ -33,17 +34,22 @@ Route::middleware('auth')->group(function () {
 
 
 // Rute login
-Route::get('/login', [AuthenticatedSessionController::class, 'cre ate'])
+Route::get('/login', [AuthenticatedSessionController::class, 'create'])
     ->middleware('guest')
     ->name('login');
+
+Route::get('/register', [AuthenticatedSessionController::class, 'create'])
+    ->name('register.show');
 
 // Rute untuk post data login
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])
     ->middleware('guest')
     ->name('login.store');
 
+Route::get('/register', [RegisteredUserController::class, 'create'])
+    ->name('register.create');
 
-
+Route::get('/sukses', [PaymentController::class, 'getThanku'])->name('sukses');
 Route::get('/aboutUs', [PemesananController::class, 'AboutUs'])->name('AboutUsCustomer');
 Route::get('/ViewCO', [PemesananController::class, 'ViewCheckout'])->name('ViewCheckout');
 Route::get('/kota/{provinsi_id}', [PemesananController::class, 'kota'])->name('kota');
@@ -57,6 +63,8 @@ Route::post('/cart', [PemesananController::class, 'add_chart'])->name('cart.add'
 Route::post('/delete/{id}', [PemesananController::class, 'deleteCart'])->name('cart.delete');
 Route::post('/Update', [PemesananController::class, 'CartUpdate'])->name('cart.update');
 Route::post('/Payment', [PaymentController::class, 'processOrder'])->name('Payment');
+Route::get('/PaymentView', [PaymentController::class, 'getViewPayment'])->name('PaymentView');
+Route::post('/Order', [PaymentController::class, 'Order'])->name('Order');
 Route::post('/PaymentUpdate', [PaymentController::class, 'processOrderUpdate'])->name('PaymentUpdate');
 Route::resource('/AdminPage', AdminController::class);
 Route::resource('/Produk', ProdukController::class);

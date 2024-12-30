@@ -37,6 +37,7 @@
                 <div class="p-r-50 p-t-5 p-lr-0-lg">
                     <h4 class="mtext-105 cl2 js-name-detail p-b-14">
                         {{ ucwords($produk->nama) }}
+
                     </h4>
                     <span class="mtext-106 cl2">
                         <table class="table">
@@ -89,10 +90,13 @@
                                     <input type="hidden" name="id" value="{{ $produk->id }}">
 
                                     <!-- Tombol Add to Cart -->
-                                    <button type="submit"
-                                        class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
-                                        Add to Cart
-                                    </button>
+                                    <div class="button-container" style="display: flex; gap: 10px;margin-left: 0px;">
+                                        <button type="submit"
+                                            class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+                                            Add to Cart
+                                        </button>
+
+                                    </div>
                                 </form>
                             </div>
                         </div>

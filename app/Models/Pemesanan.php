@@ -6,16 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pemesanan extends Model
 {
-    protected $guarded;
+    protected $guarded = [];
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function product()
+    public function produk()
     {
-        return $this->belongsTo(Produk::class);
+        return $this->belongsToMany(Produk::class, 'order_products', 'order_id', 'product_id');
     }
     public function getFormattedTotalBiayaAttribute()
     {

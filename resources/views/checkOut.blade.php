@@ -146,14 +146,13 @@
                                             <p class='card-title'>Estimasi Pengiriman : " .
                                         $by['cost'][0]['etd'] .
                                         "</p> 
-                                                 <a href='#' 
-                                                   class='btn btn-black btn-sm ongkir-option' 
+                                                 <a href='#' id='bayar-button'
+                                                   class='btn btn-black btn-sm ongkir-option'
                                                    data-ongkir-value='" .
                                         $by['cost'][0]['value'] .
-                                        "'>
+                                        "' >
                                                    Bayar
-                                                </a>
-                                     <a href='{{ route('Produk.index') }}' class='btn btn-black btn-sm '>Cancel</a>
+                                                </a><a href='/cartView' class='btn btn-black btn-sm '>Cancel</a>
                                         </div>
                                     </div>
                                 </div>";
@@ -209,6 +208,35 @@
                     // Tampilkan respons dari server jika berhasil
                     console.log(response); // Debugging
                     alert("Ongkir berhasil diproses: Rp" + ongkirValue);
+                    var snapToken = response.paket.snapToken;
+                    var data = response.paket.data;
+
+                    console.log('SnapToken:', snapToken);
+                    console.log('Data:', data);
+
+                    // Setelah sukses, jalankan pembayaran
+                    if (snapToken) {
+                        snap.pay(snapToken, {
+                            onSuccess: function(result) {
+                                // Proses berhasil
+                                window.location.href = '{{ route('sukses') }}';
+                            },
+                            onPending: function(result) {
+                                // Proses tertunda
+                                document.getElementById('result-json')
+                                    .innerHTML += JSON.stringify(result, null,
+                                        2);
+                            },
+                            onError: function(result) {
+                                // Proses gagal
+                                document.getElementById('result-json')
+                                    .innerHTML += JSON.stringify(result, null,
+                                        2);
+                            }
+                        });
+                    } else {
+                        alert('SnapToken belum tersedia.');
+                    }
                 },
                 error: function(xhr, status, error) {
                     // Menampilkan pesan error jika terjadi masalah dengan request
@@ -225,4 +253,9 @@
         });
     });
 </script>
+
+
+
+
+<script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ env('MIDTRANS_CLIENT_KEY') }}"></script>
 @endsection

@@ -8,6 +8,8 @@ use App\Models\SelectedItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use App\Models\Pemesanan;
+use App\Models\Produk;
 use Illuminate\Support\Facades\Auth;
 
 class PaymentController extends Controller
@@ -35,30 +37,100 @@ class PaymentController extends Controller
 
     //         // Lakukan sesuatu dengan array $selectedItemsArray
     //     }
+    public function getThanku()
+    {
+        return view('thankYou');
+    }
     public function processOrderUpdate(Request $request)
     {
         // Ambil ongkir dari request
         $ongkir = $request->input('ongkir');
 
-        // Cari user yang sedang login
-        // $user = Auth::user();
-
         // Cari semua selectedID yang terkait dengan user yang sedang login
-        // Misalkan tabel 'orders' memiliki relasi dengan tabel 'users' dan menyimpan selectedID ddddddd==> where('user_id', $user->id)
-        $orders = SelectedItem::whereNotNull('selectedItems')  // Pastikan ada selected_id
-            ->get(); // Mengambil semua data order yang ada
+        $userId = Auth::id();
+        $selectedItems = SelectedItem::where('user_id', $userId)->get();
 
         // Update ongkir untuk setiap order yang ditemukan
-        foreach ($orders as $order) {
-            $order->ongkir = $ongkir;  // Atur ongkir baru
-            $order->save();  // Simpan perubahan
+        foreach ($selectedItems as $item) {
+            // Asumsi bahwa 'ongkir' adalah atribut di SelectedItem
+            $item->ongkir = $ongkir;
+            $item->save();
         }
 
-        // Kembalikan response dengan pesan
+        // Hitung total TotalHarga, Ongkir, dan Quantity untuk user tersebut
+        $totalHarga = $selectedItems->sum('TotalHarga');
+        $ongkir = $selectedItems->sum('Ongkir');
+        $total_item_pesanan = $selectedItems->sum('quantity');
+
+        // Hitung total keseluruhan
+        $total = $totalHarga + $ongkir;
+
+        // Buat pesanan baru dan simpan di tabel orders
+        $order = Pemesanan::updateOrCreate(
+            ['user_id' => $userId, 'status_pesan' => 'pending'], // Kondisi untuk mencari data yang sudah ada
+            [
+                'total_biaya' => $total,
+                'shipping_address' => 'ALAAMAT',
+                'total_item_pesanan' => $total_item_pesanan,
+            ]
+        );
+
+        // Hubungkan produk yang dipilih ke pesanan melalui tabel pivot order_product
+        foreach ($selectedItems as $item) {
+            $order->produk()->attach($item->product_id);  // Asumsi 'product_id' adalah kolom yang menyimpan id produk
+        }
+
+        // Siapkan data transaksi untuk dikirim ke view
+        $data = [
+            'user_id' => $userId,
+            'total_item_pesanan' => $total_item_pesanan,
+            'total_biaya' => $total,
+            'status_pesan' => 'pending',
+        ];
+
+        // Set your Merchant Server Key
+        \Midtrans\Config::$serverKey = config('midtrans.server_key');
+        \Midtrans\Config::$isProduction = false;  // Gunakan false untuk sandbox
+        \Midtrans\Config::$isSanitized = true;
+        \Midtrans\Config::$is3ds = true;
+
+        $params = [
+            'transaction_details' => [
+                'order_id' => rand(),
+                'gross_amount' => $total, // Total amount for the transaction
+            ],
+            'customer_details' => [
+                'first_name' => Auth::user()->name,
+                'email' => Auth::user()->email,
+                'phone' => Auth::user()->no_hp,
+            ],
+        ];
+
+        // Dapatkan Snap Token dari Midtrans
+        $snapToken = \Midtrans\Snap::getSnapToken($params);
+        $order->snap_item = $snapToken;
+        $order->save();
+
+        // Kirim data snapToken dan transaksi ke view
         return response()->json([
-            'message' => 'Your order has been successfully processed! Ongkir updated for selected orders.',
+            'status' => 'success',
+            'message' => 'Ongkir berhasil diproses',
+            'paket' => ['data' => $data, 'snapToken' => $snapToken] // Mengirimkan data dan snapToken dalam URL
         ]);
     }
+    public function getViewPayment(Request $request)
+    {
+
+        $data = $request->input('data'); // Mendapatkan data dari query string
+        $snapToken = $request->input('snapToken'); // Mendapatkan snapToken dari query string
+
+        // Anda bisa mengirimkan data ini ke view
+        return view('payment', [
+            'snapToken' => $snapToken,
+            'transaksi' => $data,
+        ]);
+    }
+
     public function processOrder(Request $request)
     {
         // Mendapatkan data produk yang dipilih dari request
@@ -104,6 +176,7 @@ class PaymentController extends Controller
         }
     }
 
+    public function Order(Request $request) {}
 
 
 
