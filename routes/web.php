@@ -7,10 +7,41 @@ use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PemesananController;
+use App\Http\Controllers\Auth\EmailVerificationController;
+use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
-Route::get('/', function () {
+
+
+Route::middleware(['auth', 'verified'])->get('/', function () {
     return view('index');
+})->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    // Menampilkan tampilan verifikasi email
+    Route::get('/email/verify', [EmailVerificationController::class, 'show'])
+        ->name('verification.notice');
+
+    // Verifikasi email
+    Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])
+        ->middleware('signed')
+        ->name('verification.verify');
+
+    // Kirim ulang email verifikasi
+    Route::post('/email/resend', [EmailVerificationController::class, 'resend'])
+        ->name('verification.resend');
 });
+
+
+// Rute login
+Route::get('/login', [AuthenticatedSessionController::class, 'create'])
+    ->middleware('guest')
+    ->name('login');
+
+// Rute untuk post data login
+Route::post('/login', [AuthenticatedSessionController::class, 'store'])
+    ->middleware('guest')
+    ->name('login.store');
+
 
 
 Route::get('/aboutUs', [PemesananController::class, 'AboutUs'])->name('AboutUsCustomer');
