@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
-use App\Models\Pemesanan;
 use App\Models\Produk;
+use App\Models\Pemesanan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 
 
@@ -129,18 +130,19 @@ class PemesananController extends Controller
         ];
         $cartItem = Cart::where('product_id', $product_Chart['id'])
             ->first();
+        $userId = Auth::id();
         // dd($request->id);
         if ($cartItem) {
             // Jika produk sudah ada, update jumlahnya
             $cartItem->quantity = $request->quantity; // Menambah quantity produk
-            $cartItem->user_id = 1;
+            $cartItem->$userId;
             $cartItem->product_id = $request->id;
             $cartItem->save();
             session()->flash('success', 'Data berhasil Diupdate di keranjang.');
         } else {
             // Jika produk belum ada di keranjang, simpan item baru
             Cart::create([
-                'user_id' => 1,
+                'user_id' => $userId,
                 'product_id' => $product_Chart['id'],
                 'quantity' => $product_Chart['quantity'],
             ]);

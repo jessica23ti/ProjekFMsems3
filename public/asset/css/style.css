@@ -142,6 +142,10 @@ padding-right: 30px;
         }
     }
 }
+.ver{
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+}
 
 .login {
     position: absolute;

@@ -17,13 +17,13 @@ class EmailVerificationController extends Controller
     {
         $request->user()->markEmailAsVerified();
 
-        return redirect()->route('dashboard');
+        return redirect()->route('login');
     }
 
     public function resend(Request $request)
     {
         if ($request->user()->hasVerifiedEmail()) {
-            return redirect()->route('dashboard');
+            return redirect()->route('login');
         }
 
         $request->user()->sendEmailVerificationNotification();

@@ -33,7 +33,7 @@ Route::middleware('auth')->group(function () {
 
 
 // Rute login
-Route::get('/login', [AuthenticatedSessionController::class, 'create'])
+Route::get('/login', [AuthenticatedSessionController::class, 'cre ate'])
     ->middleware('guest')
     ->name('login');
 

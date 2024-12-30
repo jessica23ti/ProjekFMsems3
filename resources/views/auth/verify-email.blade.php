@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Login</title>
+    <title>Verifikasi</title>
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('asset/css/style.css') }}">
@@ -26,31 +26,46 @@
         <div class="signup">
             <div class="container">
                 <div class="row justify-content-center">
-                    <div class="form-holder">
-                        <div class="container">
+                    <div class="form-holder" style="padding-bottom: 0px">
+                        <form action="{{ route('verification.resend') }}" method="POST"
+                            style="padding-bottom: 0px;height: 200px">
+                            <div class="container" style="margin-top: 30px">
 
-                            @if (session('resent'))
-                                <div class="alert alert-success" role="alert">
-                                    {{ __('A fresh verification link has been sent to your email address.') }}
-                                </div>
-                            @endif
+                                <h3>{{ __('Verify Your Email Address') }}</h3>
 
-                            <h3>{{ __('Verify Your Email Address') }}</h3>
+                                <p>{{ __('Before proceeding,e please check your email for a verification link.') }}</p>
+                                <p>{{ __('If you did not receive the email') }},
 
-                            <p>{{ __('Before proceeding,e please check your email for a verification link.') }}</p>
-                            <p>{{ __('If you did not receive the email') }},
-                            <form action="{{ route('verification.resend') }}" method="POST">
-                                @csrf
-                                <button type="submit" class="btn btn-link">Kirim ulang link verifikasi</button>
-                            </form>
+                                    @csrf
+                                    <button type="submit" class="btn btn-link">Kirim ulang link verifikasi</button>
+                        </form>
+                        @if (session('status'))
+                            <div class="alert alert-success" role="alert" style="max-width: 30%;height: 40px">
+                                {{ __('Cek Email!') }}
+                            </div>
+                        @endif
 
-                            </p>
-
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
     </div>
+
+    <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        @if (session('status'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Link Verifikasi Terkirim',
+                text: 'Link verifikasi baru telah dikirim ke email Anda!',
+                showConfirmButton: false,
+                timer: 1500
+            });
+        @endif
+    </script>
 </body>
+
+</html>

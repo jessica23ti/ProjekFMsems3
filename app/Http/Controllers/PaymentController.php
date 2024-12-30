@@ -8,6 +8,7 @@ use App\Models\SelectedItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class PaymentController extends Controller
 {
@@ -63,11 +64,9 @@ class PaymentController extends Controller
         // Mendapatkan data produk yang dipilih dari request
         $cartData = $request->input('cart'); // Data keranjang yang dikirim melalui request
 
-
-
         // Inisialisasi array untuk menyimpan ID
         $orderIds = [];
-
+        $userId = Auth::id();
         if ($cartData) {
             // Proses setiap item dalam keranjang
             foreach ($cartData as $item) {
@@ -79,6 +78,7 @@ class PaymentController extends Controller
                     ['selectedItems' => $item['id']], // Kondisi untuk mencari data
                     [
                         'quantity' => $item['quantity'],  // Update jumlah produk
+                        'user_id' => $userId,  // Update jumlah produk
                         'TotalHarga' => $item['total'],   // Update total harga
                         'harga' => $item['harga'],        // Update harga per item
                     ]

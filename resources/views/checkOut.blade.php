@@ -96,7 +96,7 @@
                             <input type="text" class="form-control"
                                 placeholder="Apartment, suite, unit etc. (optional)" name="optional">
                         </div>
-                      
+
 
 
                         <div class="form-group row">
@@ -195,7 +195,7 @@
             // Ambil nilai ongkir dari atribut data-ongkir-value
             var ongkirValue = $(this).data('ongkir-value');
 
-         
+
             // Kirim data ongkir dan selectedId ke server menggunakan AJAX
             $.ajax({
                 url: "{{ route('PaymentUpdate') }}", // Route ke controller Anda
@@ -203,7 +203,7 @@
                 data: {
                     _token: "{{ csrf_token() }}", // Token CSRF untuk keamanan
                     ongkir: ongkirValue, // Kirim nilai ongkir yang diambil
-                 
+
                 },
                 success: function(response) {
                     // Tampilkan respons dari server jika berhasil
