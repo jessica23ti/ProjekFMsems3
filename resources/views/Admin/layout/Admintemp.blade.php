@@ -8,7 +8,7 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Admin Dashboard</title>
+    <title>@yield('judul')</title>
 
     <meta name="description" content="" />
 
@@ -30,8 +30,10 @@
     <link rel="stylesheet" href="{{ asset('asset/css/demo.css') }}" />
     <!-- Select2 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
-
+    <!-- EXPORT FILE -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.2.0/css/dataTables.dataTables.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.2.0/css/buttons.dataTables.css">
+    <!-- END EXPORT FILE -->
 </head>
 
 <body>
@@ -104,7 +106,6 @@
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
                             <i class="menu-icon tf-icons bx bx-home-smile"></i>
                             <div class="text-truncate" data-i18n="Dashboards">Dashboards</div>
-                            <span class="badge rounded-pill bg-danger ms-auto">5</span>
                         </a>
                         <ul class="menu-sub">
                             {{-- <li class="menu-item active {{ Request::is('pemesanan') ? 'active' : '' }}">
@@ -126,6 +127,11 @@
                             <li class="menu-item active  " {{ Request::is('/Produk') ? 'active' : '' }}>
                                 <a href="/AdminPage" class="menu-link">
                                     <div class="text-truncate" data-i18n="Analytics">Laporan Data Produk</div>
+                                </a>
+                            </li>
+                            <li class="menu-item active " {{ Request::is('/pemesanan') ? 'active' : '' }}>
+                                <a href="/pemesanan" class="menu-link">
+                                    <div class="text-truncate" data-i18n="Analytics">Laporan Data Pemesanan</div>
                                 </a>
                             </li>
 
@@ -165,56 +171,6 @@
                         </ul>
                     </li>
 
-
-
-
-                    <!-- Forms & Tables -->
-                    <li class="menu-header small text-uppercase"><span class="menu-header-text">Forms &amp;
-                            Tables</span></li>
-                    <!-- Forms -->
-                    <li class="menu-item">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons bx bx-detail"></i>
-                            <div class="text-truncate" data-i18n="Form Elements">Form Elements</div>
-                        </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="forms-basic-inputs.html" class="menu-link">
-                                    <div class="text-truncate" data-i18n="Basic Inputs">Basic Inputs</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="forms-input-groups.html" class="menu-link">
-                                    <div class="text-truncate" data-i18n="Input groups">Input groups</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="menu-item">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons bx bx-detail"></i>
-                            <div class="text-truncate" data-i18n="Form Layouts">Form Layouts</div>
-                        </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="form-layouts-vertical.html" class="menu-link">
-                                    <div class="text-truncate" data-i18n="Vertical Form">Vertical Form</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="form-layouts-horizontal.html" class="menu-link">
-                                    <div class="text-truncate" data-i18n="Horizontal Form">Horizontal Form</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <!-- Tables -->
-                    <li class="menu-item">
-                        <a href="tables-basic.html" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-table"></i>
-                            <div class="text-truncate" data-i18n="Tables">Tables</div>
-                        </a>
-                    </li>
                 </ul>
             </aside>
             <!-- / Menu -->
@@ -251,7 +207,7 @@
                                 <a class="nav-link dropdown-toggle hide-arrow p-0" href="javascript:void(0);"
                                     data-bs-toggle="dropdown">
                                     <div class="avatar avatar-online">
-                                        <img src="{{ asset('admin/admintemp/assets/img/avatars/1.png') }}" alt
+                                        <img src="{{ asset('asset/image/woman.png') }}" alt
                                             class="w-px-40 h-auto rounded-circle" />
                                     </div>
                                 </a>
@@ -261,8 +217,8 @@
                                             <div class="d-flex">
                                                 <div class="flex-shrink-0 me-3">
                                                     <div class="avatar avatar-online">
-                                                        <img src="{{ asset('admin/admintemp/assets/img/avatars/1.png') }} "
-                                                            alt class="w-px-40 h-auto rounded-circle" />
+                                                        <img src="{{ asset('asset/image/woman.png') }}" alt
+                                                            class="w-px-40 h-auto rounded-circle" />
                                                     </div>
                                                 </div>
                                                 <div class="flex-grow-1">
@@ -275,31 +231,21 @@
                                     <li>
                                         <div class="dropdown-divider my-1"></div>
                                     </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">
-                                            <i class="bx bx-user bx-md me-3"></i><span>My Profile</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#"> <i
-                                                class="bx bx-cog bx-md me-3"></i><span>Settings</span> </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">
-                                            <span class="d-flex align-items-center align-middle">
-                                                <i class="flex-shrink-0 bx bx-credit-card bx-md me-3"></i><span
-                                                    class="flex-grow-1 align-middle">Billing Plan</span>
-                                                <span class="flex-shrink-0 badge rounded-pill bg-danger">4</span>
-                                            </span>
-                                        </a>
-                                    </li>
+
+
+
                                     <li>
                                         <div class="dropdown-divider my-1"></div>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="javascript:void(0);">
+                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                            style="cursor: pointer"
+                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit()">
                                             <i class="bx bx-power-off bx-md me-3"></i><span>Log Out</span>
                                         </a>
+                                        <form action="{{ route('logout') }}" method="POST" id="logout-form">
+                                            @csrf
+                                        </form>
                                     </li>
                                 </ul>
                             </li>
@@ -325,6 +271,23 @@
         <!-- Overlay -->
         <div class="layout-overlay layout-menu-toggle"></div>
     </div>
+    <!-- Load jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+
+    <!-- Load DataTables JS -->
+    <script src="https://cdn.datatables.net/2.2.0/js/dataTables.js"></script>
+
+    <!-- Load Buttons JS (untuk export) -->
+
+    <script src="https://cdn.datatables.net/buttons/3.2.0/js/dataTables.buttons.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.dataTables.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.print.min.js"></script>
+
+    <!-- end  EXPORT FILE  -->
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
     <!-- Select2 JS -->
@@ -337,6 +300,7 @@
     <script src="{{ asset('asset/js/menu.js') }}"></script>
 
     <!-- endbuild -->
+
 
     <!-- Vendors JS -->
     <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.35.3/dist/apexcharts.min.js"></script>

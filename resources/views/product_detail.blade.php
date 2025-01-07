@@ -61,10 +61,6 @@
 
                     </span>
 
-                    <p class="stext-102 cl3 p-t-23">
-                        Deskripsi : {{ $produk->deskripsi }}
-
-                    </p>
 
                     <!--  -->
                     <div class="p-t-33">

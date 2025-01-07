@@ -3,9 +3,17 @@
         <div class="row justify-content-between">
             <div class="col-lg-7 mb-5 mb-lg-0">
                 <div class="imgs-grid">
-                    <div class="grid grid-1"><img src="images/img-grid-1.jpg" alt="Produk UMKM"></div>
-                    <div class="grid grid-2"><img src="images/img-grid-2.jpg" alt="Produk UMKM"></div>
-                    <div class="grid grid-3"><img src="images/img-grid-3.jpg" alt="Produk UMKM"></div>
+                    <div class="grid grid-1"><img
+                            src="{{ asset('asset/image/1x1_make_me_a_picture_of_a_good_and_ (2).png') }}"
+                            alt="Produk UMKM">
+                    </div>
+                    <div class="grid grid-3"><img
+                            src="{{ asset('asset/image/675348e7-c56b-412c-8518-5f64c0f8f62f.jpeg') }}" alt="Produk UMKM">
+                    </div>
+                    <div class="grid grid-2"><img
+                            src="{{ asset('asset/image/1x1_make_me_a_picture_of_a_good_and_ (1).png') }}"
+                            alt="Produk UMKM"></div>
+
                 </div>
             </div>
             <div class="col-lg-5 ps-lg-5">

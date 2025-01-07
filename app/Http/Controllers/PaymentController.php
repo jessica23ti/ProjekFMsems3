@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use Midtrans\Snap;
 use Midtrans\Config;
+use App\Models\Produk;
+use App\Models\Pemesanan;
+use App\Mail\EmailAfterCO;
 use App\Models\SelectedItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
-use App\Models\Pemesanan;
-use App\Models\Produk;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class PaymentController extends Controller
 {
@@ -40,10 +42,22 @@ class PaymentController extends Controller
     public function getThanku()
     {
         $userID = Auth::id();
-        $pemesanan_id = Pemesanan::where('user_id',   $userID)->first();
+        $pemesanan_id = Pemesanan::where('user_id',   $userID)->latest();
 
         $pemesanan_id->status_pesan = 'sukses';
         $pemesanan_id->save();
+
+        $order = Pemesanan::where('user_id', $userID) // Filter berdasarkan user_id
+            ->latest('id') // Urutkan berdasarkan kolom 'id' (bisa 'created_at' jika sesuai kebutuhan)
+            ->first(); // Ambil data pertama (terbaru)
+        $data = [
+            'text' => 'Terima Kasih Sudah berbelanja!',
+            'order_id' => $order->id,
+            'tgl' => $order->updated_at,
+        ];
+
+        $email_target = "jessicanathania72@gmail.com";
+        Mail::to($email_target)->send(new EmailAfterCO($data));
         return view('thankYou');
     }
     public function processOrderUpdate(Request $request)
@@ -180,10 +194,6 @@ class PaymentController extends Controller
             ], 400); // Status 400 untuk error
         }
     }
-
-    public function Order(Request $request) {}
-
-
 
     public function createCharge(Request $request)
     {

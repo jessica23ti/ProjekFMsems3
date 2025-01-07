@@ -7,14 +7,18 @@ use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PemesananController;
+use App\Http\Controllers\EmailCons;
 use App\Http\Controllers\Auth\EmailVerificationController;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
+Route::get('/unauthorized', function () {
+    return 'You are not authorized to access this page.';
+});
 
 
 Route::middleware(['auth', 'verified'])->get('/', function () {
-    return view('index');
+    return view(view: 'index');
 })->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -64,9 +68,12 @@ Route::post('/delete/{id}', [PemesananController::class, 'deleteCart'])->name('c
 Route::post('/Update', [PemesananController::class, 'CartUpdate'])->name('cart.update');
 Route::post('/Payment', [PaymentController::class, 'processOrder'])->name('Payment');
 Route::get('/PaymentView', [PaymentController::class, 'getViewPayment'])->name('PaymentView');
+Route::get('/email', [EmailCons::class, 'index'])->name('email');
+Route::get('/Sendemail', [EmailCons::class, 'sendEmail'])->name('Sendemail');
 Route::post('/Order', [PaymentController::class, 'Order'])->name('Order');
 Route::post('/PaymentUpdate', [PaymentController::class, 'processOrderUpdate'])->name('PaymentUpdate');
 Route::resource('/AdminPage', AdminController::class);
 Route::resource('/Produk', ProdukController::class);
 Route::resource('/Kategori', CategoryController::class);
 Route::resource('/pemesanan', PemesananController::class);
+Route::get('/gerr', [EmailCons::class, 'gerr'])->name('gerr');

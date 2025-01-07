@@ -8,7 +8,7 @@
 <x-promotion />
 <!-- End Why Choose Us Section -->
 
-<!-- Start Team Section -->
+{{-- <!-- Start Team Section -->
 <div class="untree_co-section">
     <div class="container">
 
@@ -82,7 +82,7 @@
         </div>
     </div>
 </div>
-<!-- End Team Section -->
+<!-- End Team Section --> --}}
 
 
 

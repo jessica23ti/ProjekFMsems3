@@ -121,6 +121,31 @@
   --bs-form-invalid-color: #ff3e1d;
   --bs-form-invalid-border-color: #ff3e1d;
 }
+.wrapper {
+  display: flex; /* Menggunakan flexbox untuk tata letak horizontal */
+  align-items: center; /* Menyelaraskan elemen secara vertikal */
+  gap: 10px; /* Memberikan jarak antara kolom pencarian dan tombol */
+}
+.dt-search {
+  /* Gaya khusus untuk div dengan class dt-search */
+  padding: 0px 0px 0px 0px;
+  margin-bottom: 20px;
+
+}
+#table-datatables_info.dt-info {
+  /* Gaya khusus untuk elemen dengan ID table-datatables_info dan class dt-info */
+
+  margin-top: 10px;
+}
+.table-dark.custome th {
+  background-color: #696cff9c;
+  color: #f9f6f6; /* White text color */
+ 
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow */
+}
+.divButton {
+  margin-left: 66%;
+}
 
 *,
 *::before,
@@ -3693,6 +3718,7 @@ textarea.form-control-lg {
   flex-wrap: wrap;
   padding-left: 0;
   margin-bottom: 0;
+
   list-style: none;
 }
 

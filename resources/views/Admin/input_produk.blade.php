@@ -1,4 +1,7 @@
 @extends('Admin.layout.Admintemp', ['title' => 'Input Produk'])
+@section('judul')
+    Input Produk
+@endsection
 @section('content')
     <!-- Content -->
     <!-- Form controls -->
@@ -16,8 +19,8 @@
                         </div>
                         <div class="col-6 col-sm-4">
                             <label for="exampleFormControlInput1" class="form-label">Deskripsi</label>
-                            <input type="text" class="form-control" id="exampleFormControlInput1" name="deskripsi"
-                                value="{{ old('deskripsi') }}" />
+                            <textarea type="text" class="form-control" id="exampleFormControlInput1" name="deskripsi"
+                                value="{{ old('deskripsi') }}"></textarea>
                         </div>
 
                         <div class="col-6 col-sm-4">

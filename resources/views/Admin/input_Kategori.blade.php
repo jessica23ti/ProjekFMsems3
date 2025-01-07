@@ -1,4 +1,7 @@
 @extends('Admin.layout.Admintemp', ['title' => 'Input Produk'])
+@section('judul')
+    Input Kategori
+@endsection
 @section('content')
     <!-- Content -->
     <!-- Form controls -->

@@ -193,8 +193,6 @@
 
             // Ambil nilai ongkir dari atribut data-ongkir-value
             var ongkirValue = $(this).data('ongkir-value');
-
-
             // Kirim data ongkir dan selectedId ke server menggunakan AJAX
             $.ajax({
                 url: "{{ route('PaymentUpdate') }}", // Route ke controller Anda

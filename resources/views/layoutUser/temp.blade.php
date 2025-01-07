@@ -72,6 +72,24 @@
                             </svg>
                         </a>
                     </li>
+                    <li>
+                        {{-- //{{ route('') }} --}}
+                        <a class="nav-link" href="{{ route('logout') }}" style="cursor: pointer"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit()">
+                            &nbsp;&nbsp;&nbsp;
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                                class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z" />
+                                <path fill-rule="evenodd"
+                                    d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
+                            </svg>
+                        </a>
+                    </li>
+                    <form action="{{ route('logout') }}" style="display: none" id="logout-form" method="POST">
+                        @csrf
+
+                    </form>
                 </ul>
             </div>
         </div>
@@ -103,75 +121,44 @@
     @yield('content')
 
     <!-- Start Footer Section -->
-    <footer class="footer-section">
-        <div class="container relative">
+    <div class="footer-background-wrap">
+        <footer class="footer-section">
+            <div class="container relative">
+                <div class="row g-5 mb-5">
+                    <div class="col-lg-4">
+                        <div class="mb-4 footer-logo-wrap"><a href="#" class="footer-logo">Nusantara
+                                Craft<span>.</span></a>
+                        </div>
+                        <p class="mb-4"> Kami mendukung perkembangan UMKM di Indonesia dengan menyediakan produk
+                            berkualitas dan layanan terbaik untuk masyarakat. Jadilah bagian dari perjalanan kami menuju
+                            kemajuan ekonomi lokal.
+                        </p>
 
-            <div class="sofa-img">
-                <img src="{{ asset('furni-1.0.0/images/sofa.png') }}" alt="Image" class="img-fluid">
-            </div>
-
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="subscription-form">
-                        <h3 class="d-flex align-items-center"><span class="me-1"><img
-                                    src="images/envelope-outline.svg" alt="Image"
-                                    class="img-fluid"></span><span>Subscribe to Newsletter</span></h3>
-
-                        <form action="#" class="row g-3">
-                            <div class="col-auto">
-                                <input type="text" class="form-control" placeholder="Enter your name">
-                            </div>
-                            <div class="col-auto">
-                                <input type="email" class="form-control" placeholder="Enter your email">
-                            </div>
-                            <div class="col-auto">
-                                <button class="btn btn-primary">
-                                    <span class="fa fa-paper-plane"></span>
-                                </button>
-                            </div>
-                        </form>
-
+                        <ul class="list-unstyled custom-social">
+                            <li><a href="#"><span class="fa fa-brands fa-facebook-f"></span></a></li>
+                            <li><a href="#"><span class="fa fa-brands fa-twitter"></span></a></li>
+                            <li><a href="#"><span class="fa fa-brands fa-instagram"></span></a></li>
+                            <li><a href="#"><span class="fa fa-brands fa-whatsapp"></span></a></li>
+                        </ul>
                     </div>
-                </div>
-            </div>
 
-            <div class="row g-5 mb-5">
-                <div class="col-lg-4">
-                    <div class="mb-4 footer-logo-wrap"><a href="#" class="footer-logo">Nusantara
-                            Craft<span>.</span></a>
-                    </div>
-                    <p class="mb-4"> Kami mendukung perkembangan UMKM di Indonesia dengan menyediakan produk
-                        berkualitas dan layanan terbaik untuk masyarakat. Jadilah bagian dari perjalanan kami menuju
-                        kemajuan ekonomi lokal.
-                    </p>
-
-                    <ul class="list-unstyled custom-social">
-                        <li><a href="#"><span class="fa fa-brands fa-facebook-f"></span></a></li>
-                        <li><a href="#"><span class="fa fa-brands fa-twitter"></span></a></li>
-                        <li><a href="#"><span class="fa fa-brands fa-instagram"></span></a></li>
-                        <li><a href="#"><span class="fa fa-brands fa-linkedin"></span></a></li>
-                    </ul>
-                </div>
-
-                <div class="col-lg-8">
-                    <div class="row links-wrap">
-                        <div class="col-6 col-sm-6 col-md-3">
-                            <ul class="list-unstyled">
-                                <li><a href="{{ route('Produk.index') }}">Shop</a></li>
-                                <li><a href="#">About us</a></li>
-                                <li><a href="#">Contact us</a></li>
-
-                            </ul>
+                    <div class="col-lg-8">
+                        <div class="row links-wrap">
+                            <div class="col-6 col-sm-6 col-md-3">
+                                <ul class="list-unstyled">
+                                    <li><a href="{{ route('Produk.index') }}">Shop</a></li>
+                                    <li><a href="{{ route('AboutUsCustomer') }}">About us</a></li>
+                                    <li><a href="{{ route('ContactCustomer') }}">Contact us</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
+
                 </div>
-
             </div>
-        </div>
-        </div>
+        </footer>
+    </div>
 
-        </div>
-    </footer>
     <!-- End Footer Section -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

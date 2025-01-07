@@ -237,8 +237,8 @@ a.more {
     box-shadow: none;
 }
 .btn.btn-primary {
-    background: #3b5d50;
-    border-color: #3b5d50;
+    background: #972419;
+    border-color: #972419;
 }
 .btn.btn-primary:hover {
     background: #314d43;
@@ -836,7 +836,7 @@ a.more {
     height: 50px;
     line-height: 50px;
     text-align: center;
-    background: #3b5d50;
+    background: #972419;
     margin-right: 20px;
     color: #ffffff;
 }

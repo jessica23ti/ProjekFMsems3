@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\Produk;
 use App\Models\Pemesanan;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
@@ -15,7 +16,11 @@ class PemesananController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index() {}
+    public function index()
+    {
+        $data['pemesanan'] = Pemesanan::latest()->paginate(10);
+        return view('Admin.pemesanan_index', $data);
+    }
 
     public function AboutUs()
     {
@@ -182,12 +187,14 @@ class PemesananController extends Controller
     }
     public function  Contact()
     {
-        return view('contact');
+        $id = Auth::id();
+        $user = User::where('id', $id)->get();
+        return view('contact', $user);
     }
     public function  cart()
     {
         $cart = Cart::with('produk.images') // Eager loading untuk relasi produk dan gambar
-            ->get(); // Mengambil semua data keranjang
+            ->get(); // Mengambil semua data  keranjang
 
         return view('cart', compact('cart'));
     }
@@ -223,18 +230,12 @@ class PemesananController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(String $pemesanan)
-    {
-        //
-    }
+    public function edit(String $id) {}
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, String $pemesanan)
-    {
-        //
-    }
+    public function update(Request $request, String $id) {}
 
     /**
      * Remove the specified resource from storage.

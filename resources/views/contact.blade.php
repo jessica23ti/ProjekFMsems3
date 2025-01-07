@@ -10,11 +10,8 @@
 
         <div class="block">
             <div class="row justify-content-center">
-
-
                 <div class="col-md-8 col-lg-8 pb-4">
-
-
+                    <br><br>
                     <div class="row mb-5">
                         <div class="col-lg-4">
                             <div class="service no-shadow align-items-center link horizontal d-flex active"
@@ -27,7 +24,7 @@
                                     </svg>
                                 </div> <!-- /.icon -->
                                 <div class="service-contents">
-                                    <p>43 Raymouth Rd. Baltemoer, London 3910</p>
+                                    <p> Jakarta, Tanggerang Selatan, Ajuja Street</p>
                                 </div> <!-- /.service-contents-->
                             </div> <!-- /.service -->
                         </div>
@@ -43,7 +40,7 @@
                                     </svg>
                                 </div> <!-- /.icon -->
                                 <div class="service-contents">
-                                    <p>info@yourdomain.com</p>
+                                    <p>NusantaraCraft@gmail.com</p>
                                 </div> <!-- /.service-contents-->
                             </div> <!-- /.service -->
                         </div>
@@ -59,40 +56,48 @@
                                     </svg>
                                 </div> <!-- /.icon -->
                                 <div class="service-contents">
-                                    <p>+1 294 3925 3939</p>
+                                    <p>+ 62 845468432</p>
                                 </div> <!-- /.service-contents-->
                             </div> <!-- /.service -->
                         </div>
                     </div>
-
-                    <form>
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label class="text-black" for="fname">First name</label>
-                                    <input type="text" class="form-control" id="fname">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 style="text-align: center"><b>Testimoni</b></h2>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title"></h5>
+                            <form>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="text-black" for="fname">First name</label>
+                                            <input type="text" class="form-control" id="fname">
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="text-black" for="lname">Last name</label>
+                                            <input type="text" class="form-control" id="lname">
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-6">
                                 <div class="form-group">
-                                    <label class="text-black" for="lname">Last name</label>
-                                    <input type="text" class="form-control" id="lname">
+                                    <label class="text-black" for="email">Email address</label>
+                                    <input type="email" class="form-control" id="email">
                                 </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="text-black" for="email">Email address</label>
-                            <input type="email" class="form-control" id="email">
+
+                                <div class="form-group mb-5">
+                                    <label class="text-black" for="message">Message</label>
+                                    <textarea name="" class="form-control" id="message" cols="30" rows="5"></textarea>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary-hover-outline">Send Message</button>
+                            </form>
+
                         </div>
 
-                        <div class="form-group mb-5">
-                            <label class="text-black" for="message">Message</label>
-                            <textarea name="" class="form-control" id="message" cols="30" rows="5"></textarea>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary-hover-outline">Send Message</button>
-                    </form>
-
+                    </div>
                 </div>
 
             </div>
