@@ -125,6 +125,23 @@ class PemesananController extends Controller
         }
     }
 
+    public function updateCart(Request $request, $id_keranjang)
+    {
+        // Validasi data
+        $request->validate([
+            'jumlah' => 'required|integer|min:1',
+        ]);
+        // Cari item keranjang berdasarkan id
+        $cartItem = Cart::findOrFail($id_keranjang);
+
+        // Update jumlah item
+        $cartItem->quantity = $request->input('jumlah');
+        $cartItem->save();
+
+        // Redirect kembali dengan pesan sukses
+        return redirect()->route('cartCustomer')->with('success', 'Item berhasil diperbarui.');
+    }
+
     public function add_chart(Request $request)
     {
         // Cek apakah produk sudah ada di keranjang
@@ -198,11 +215,10 @@ class PemesananController extends Controller
 
         return view('cart', compact('cart'));
     }
-    public function  deleteCart(Request $request, String $id)
+    public function  deleteCart(Request $request, $id)
     {
-        $cart = Cart::with('produk')->findOrFail($id);
+        $cart = Cart::findOrFail($id);
         $cart->delete();
-        session()->flash('success', 'Data berhasil dihapus di keranjang.');
         return redirect()->route('cartCustomer');
     }
 

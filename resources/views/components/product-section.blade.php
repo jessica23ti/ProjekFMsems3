@@ -20,7 +20,7 @@
             @foreach ($produk as $carts)
                 <!-- Start Column 2 -->
                 <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-                    <a class="product-item" href="{{ route('cart.add') }}">
+                    <a class="product-item" href="{{ route('Produk.index') }}">
                         @if ($carts->images->isNotEmpty())
                             <img src="{{ asset('storage/' . $carts->images->first()->image_path) }}" alt="IMG-PRODUCT"
                                 class="img-fluid" height="300px" width="200px">

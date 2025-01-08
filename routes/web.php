@@ -64,8 +64,8 @@ Route::get('/detail/{id}', [PemesananController::class, 'detail'])->name('detail
 Route::get('/cartView', [PemesananController::class, 'cart'])->name('cartCustomer');
 Route::get('/load-more-products', [ProdukController::class, 'loadMore'])->name('load.more');
 Route::post('/cart', [PemesananController::class, 'add_chart'])->name('cart.add');
-Route::post('/delete/{id}', [PemesananController::class, 'deleteCart'])->name('cart.delete');
-Route::post('/Update', [PemesananController::class, 'CartUpdate'])->name('cart.update');
+Route::delete('/delete/{id}', [PemesananController::class, 'deleteCart'])->name('cart.delete');
+Route::put('/Cart/update/{id}', [PemesananController::class, 'updateCart'])->name('cart.update');
 Route::post('/Payment', [PaymentController::class, 'processOrder'])->name('Payment');
 Route::get('/PaymentView', [PaymentController::class, 'getViewPayment'])->name('PaymentView');
 Route::get('/email', [EmailCons::class, 'index'])->name('email');
@@ -76,4 +76,4 @@ Route::resource('/AdminPage', AdminController::class);
 Route::resource('/Produk', ProdukController::class);
 Route::resource('/Kategori', CategoryController::class);
 Route::resource('/pemesanan', PemesananController::class);
-Route::get('/gerr', [EmailCons::class, 'gerr'])->name('gerr');
+// Route::get('/gerr', [EmailCons::class, 'gerr'])->name('gerr');

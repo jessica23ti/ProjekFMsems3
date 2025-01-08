@@ -87,7 +87,7 @@
 
 
 <!-- Start Testimonial Slider -->
-<div class="testimonial-section before-footer-section">
+<div class="testimonial-section">
     <div class="container">
         <div class="row">
             <div class="col-lg-7 mx-auto text-center">
@@ -112,19 +112,50 @@
 
                                     <div class="testimonial-block text-center">
                                         <blockquote class="mb-5">
-                                            <p>&ldquo;Donec facilisis quam ut purus rutrum lobortis. Donec vitae
-                                                odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam
-                                                vulputate velit imperdiet dolor tempor tristique. Pellentesque
-                                                habitant morbi tristique senectus et netus et malesuada fames ac
-                                                turpis egestas. Integer convallis volutpat dui quis
-                                                scelerisque.&rdquo;</p>
+                                            <p>Sebagai pemilik usaha kecil, saya merasa sangat terbantu dengan website
+                                                ini. Desainnya yang simple dan mudah dipahami membuat saya bisa
+                                                mengelola produk dan menerima pesanan dengan lebih efisien. Selain itu,
+                                                fitur pembayaran yang terintegrasi membuat proses transaksi menjadi
+                                                lebih cepat dan aman. Website ini sangat membantu meningkatkan
+                                                visibilitas bisnis saya, dan saya merasa lebih dekat dengan pelanggan.
+                                                Sangat direkomendasikan untuk UMKM yang ingin berkembang</p>
                                         </blockquote>
 
                                         <div class="author-info">
                                             <div class="author-pic">
-                                                <img src="images/person-1.png" alt="Maria Jones" class="img-fluid">
+                                                <img src="https://img.freepik.com/free-photo/front-view-smiley-man-seaside_23-2149737022.jpg"
+                                                    alt="Maria Jones" class="img-fluid">
                                             </div>
-                                            <h3 class="font-weight-bold">Maria Jones</h3>
+                                            <h3 class="font-weight-bold">Jessica Nathania</h3>
+                                            <span class="position d-block mb-3">CEO, Co-Founder, TechSIA.</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END item -->
+
+                        <div class="item">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8 mx-auto">
+
+                                    <div class="testimonial-block text-center">
+                                        <blockquote class="mb-5">
+                                            <p>Website ini luar biasa! Sebagai pemilik toko online kecil, saya bisa
+                                                dengan mudah mengelola stok barang, mengupdate harga, dan menerima
+                                                pesanan kapan saja. Fitur pemesanan yang otomatis sangat menghemat waktu
+                                                saya. Selain itu, tampilan website yang profesional juga membantu
+                                                memberikan kesan yang lebih baik kepada pelanggan. Kini, bisnis saya
+                                                semakin dikenal banyak orang</p>
+                                        </blockquote>
+
+                                        <div class="author-info">
+                                            <div class="author-pic">
+                                                <img src="https://media.istockphoto.com/id/1397918527/photo/adult-asian-man-standing-and-cheering-while-showing-paper-money-that-he-hold.jpg?s=612x612&w=0&k=20&c=5sckR3PV6KI8qQPRBNpN9hJUgALggMU3IGOOANtXWAk="
+                                                    alt="Maria Jones" class="img-fluid">
+                                            </div>
+                                            <h3 class="font-weight-bold">Robby Juanda</h3>
                                             <span class="position d-block mb-3">CEO, Co-Founder, XYZ Inc.</span>
                                         </div>
                                     </div>
@@ -140,47 +171,20 @@
 
                                     <div class="testimonial-block text-center">
                                         <blockquote class="mb-5">
-                                            <p>&ldquo;Donec facilisis quam ut purus rutrum lobortis. Donec vitae
-                                                odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam
-                                                vulputate velit imperdiet dolor tempor tristique. Pellentesque
-                                                habitant morbi tristique senectus et netus et malesuada fames ac
-                                                turpis egestas. Integer convallis volutpat dui quis
-                                                scelerisque.&rdquo;</p>
+                                            <p>Saya sangat puas dengan website UMKM ini! Proses pendaftaran dan setup
+                                                yang mudah membuat saya bisa langsung memulai jualan online tanpa
+                                                kesulitan. Dengan integrasi sistem pembayaran yang aman, pelanggan saya
+                                                merasa nyaman berbelanja. Keberadaan website ini memberikan peluang
+                                                besar untuk memperluas pasar, bahkan di luar kota. Saya sangat
+                                                merekomendasikan untuk semua pelaku UMKM yang ingin go digital</p>
                                         </blockquote>
 
                                         <div class="author-info">
                                             <div class="author-pic">
-                                                <img src="images/person-1.png" alt="Maria Jones" class="img-fluid">
+                                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6dlpGkeeSg3O7UviUZp27YVpvQN_idziw0w&s"
+                                                    alt="Maria Jones" class="img-fluid">
                                             </div>
-                                            <h3 class="font-weight-bold">Maria Jones</h3>
-                                            <span class="position d-block mb-3">CEO, Co-Founder, XYZ Inc.</span>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <!-- END item -->
-
-                        <div class="item">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-8 mx-auto">
-
-                                    <div class="testimonial-block text-center">
-                                        <blockquote class="mb-5">
-                                            <p>&ldquo;Donec facilisis quam ut purus rutrum lobortis. Donec vitae
-                                                odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam
-                                                vulputate velit imperdiet dolor tempor tristique. Pellentesque
-                                                habitant morbi tristique senectus et netus et malesuada fames ac
-                                                turpis egestas. Integer convallis volutpat dui quis
-                                                scelerisque.&rdquo;</p>
-                                        </blockquote>
-
-                                        <div class="author-info">
-                                            <div class="author-pic">
-                                                <img src="images/person-1.png" alt="Maria Jones" class="img-fluid">
-                                            </div>
-                                            <h3 class="font-weight-bold">Maria Jones</h3>
+                                            <h3 class="font-weight-bold">Mianti Haresh</h3>
                                             <span class="position d-block mb-3">CEO, Co-Founder, XYZ Inc.</span>
                                         </div>
                                     </div>

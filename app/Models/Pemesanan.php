@@ -30,4 +30,9 @@ class Pemesanan extends Model
         $this->status_pesan = $status;
         $this->save();
     }
+    public function orderItem()
+    {
+        return $this->hasMany(OrderItem::class, 'id');
+    }
+
 }

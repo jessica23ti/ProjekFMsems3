@@ -45,16 +45,10 @@
                                 <td>
                                     <div class="input-group mb-3 d-flex align-items-center quantity-container"
                                         style="max-width: 120px;">
-                                        <div class="input-group-prepend">
-                                            <button class="btn btn-outline-black decrease"
-                                                type="button">&minus;</button>
-                                        </div>
+
                                         <input type="text" class="form-control text-center quantity-amount"
                                             value="{{ $carts->quantity }}">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-outline-black increase"
-                                                type="button">&plus;</button>
-                                        </div>
+
                                     </div>
                                 </td>
                                 <td>
@@ -64,16 +58,56 @@
                                     {{ $total }}
                                 </td>
                                 <td>
+                                    <button class="btn btn-md rounded-circle bg-light border mt-4"
+                                        data-bs-toggle="modal" data-bs-target="#editModal{{ $carts->id }}">
+                                        <i class="fa fa-pencil-alt " style="color: #6C370B"></i>
+                                    </button>
                                     <form id="delete-item-{{ $carts->id }}"
                                         action="{{ route('cart.delete', $carts->id) }}" method="POST"
                                         style="display: none;">
                                         @csrf
                                         @method('DELETE')
                                     </form>
-                                    <a href="#" onclick="confirmDelete({{ $carts->id }})"
-                                        class="btn btn-danger">Hapus</a>
+                                    <button
+                                        class="btn btn-md rounded-circle bg-light border mt-4"onclick="confirmDelete({{ $carts->id }})">
+                                        <i class="fa fa-times text-danger"></i>
+                                    </button>
+                                    {{-- <a href="#" onclick="confirmDelete({{ $carts->id }})"
+                                        class="btn btn-danger">Hapus</a> --}}
                                 </td>
                             </tr>
+                            {{-- Modal edit --}}
+                            <div class="modal fade" id="editModal{{ $carts->id }}" tabindex="-1"
+                                aria-labelledby="editModalLabel{{ $carts->id }}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="editModalLabel{{ $carts->id }}">Edit
+                                                Item</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <form action="{{ route('cart.update', $carts->id) }}" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <div class="modal-body">
+                                                <div class="mb-3">
+                                                    <label for="jumlah{{ $carts->id }}"
+                                                        class="form-label">Jumlah</label>
+                                                    <input type="number" class="form-control"
+                                                        id="jumlah{{ $carts->id }}" name="jumlah"
+                                                        value="{{ $carts->id }}" min="1">
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Batal</button>
+                                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         @endforeach
                     </tbody>
                 </table>
@@ -109,6 +143,24 @@
 @endsection
 
 @section('script')
+<script>
+    function confirmDelete(cartId) {
+        Swal.fire({
+            title: 'Apakah Anda yakin?',
+            text: "Item ini akan dihapus dari keranjang!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, Hapus!',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('delete-item-' + cartId).submit();
+            }
+        });
+    }
+</script>
 <script>
     $(document).ready(function() {
         // Event untuk checkbox "Check All"

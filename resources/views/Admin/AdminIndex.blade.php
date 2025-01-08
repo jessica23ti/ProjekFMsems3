@@ -53,7 +53,7 @@
                                             <a href="{{ route('Produk.edit', ['Produk' => $kiw->id]) }}"
                                                 class="btn btn-success">Edit</a>
 
-                                            <a href="/Produk/{{ $kiw->id }}" class="btn btn-success">Detail</a>
+                                            {{-- <a href="/Produk/{{ $kiw->id }}" class="btn btn-success">Detail</a> --}}
                                             <form action="{{ route('Produk.destroy', $kiw->id) }}" method="POST"
                                                 style="display:inline;"
                                                 onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');">

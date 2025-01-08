@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Midtrans\Snap;
+use App\Models\Cart;
 use Midtrans\Config;
 use App\Models\Produk;
+use App\Models\OrderItem;
 use App\Models\Pemesanan;
 use App\Mail\EmailAfterCO;
 use App\Models\SelectedItem;
@@ -42,7 +44,7 @@ class PaymentController extends Controller
     public function getThanku()
     {
         $userID = Auth::id();
-        $pemesanan_id = Pemesanan::where('user_id',   $userID)->latest();
+        $pemesanan_id = Pemesanan::where('user_id',   $userID)->latest()->first();
 
         $pemesanan_id->status_pesan = 'sukses';
         $pemesanan_id->save();
@@ -53,11 +55,26 @@ class PaymentController extends Controller
         $data = [
             'text' => 'Terima Kasih Sudah berbelanja!',
             'order_id' => $order->id,
+            'total' => $order->total_biaya,
+            'total_item' => $order->total_item_pesanan,
             'tgl' => $order->updated_at,
         ];
 
         $email_target = "jessicanathania72@gmail.com";
         Mail::to($email_target)->send(new EmailAfterCO($data));
+        $order = Pemesanan::find($pemesanan_id->id);
+
+        // Cek apakah pesanan sudah dalam status 'completed' atau 'confirmed'
+        if ($order && $order->status_pesan === 'sukses') {
+            // Ambil semua item yang terkait dengan pesanan ini
+            $selectedItems = SelectedItem::where('user_id', Auth::id())->get();
+
+            // Hapus setiap item dari keranjang
+            foreach ($selectedItems as $item) {
+                // Menghapus item dari cart (SelectedItem)
+                $item->delete();
+            }
+        }
         return view('thankYou');
     }
     public function processOrderUpdate(Request $request)
@@ -82,13 +99,13 @@ class PaymentController extends Controller
         $total_item_pesanan = $selectedItems->sum('quantity');
 
         // Hitung total keseluruhan
-        $total = $totalHarga + $ongkir;
+        $total = $totalHarga +  $item->ongkir;
 
         // Buat pesanan baru dan simpan di tabel orders
         $order = Pemesanan::updateOrCreate(
             ['user_id' => $userId, 'status_pesan' => 'pending'], // Kondisi untuk mencari data yang sudah ada
             [
-                'total_biaya' => $total,
+                'total_biaya' => $totalHarga + $item->ongkir,
                 'shipping_address' => 'ALAAMAT',
                 'total_item_pesanan' => $total_item_pesanan,
             ]
@@ -162,7 +179,6 @@ class PaymentController extends Controller
             // Proses setiap item dalam keranjang
             foreach ($cartData as $item) {
                 // Debugging untuk melihat item yang diproses
-
 
                 // Simpan atau perbarui data dengan updateOrCreate
                 $selectedItem = SelectedItem::updateOrCreate(
