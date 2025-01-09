@@ -14,11 +14,11 @@
         <div class="col-md-12">
             <div class="mb-5 row">
                 <div class="col-md-12">
-                    <h2 class="mb-3 text-black h3">Your Order</h2>
+                    <h2 class="mb-3 text-black h3">Detail Orderan Kamu</h2>
                     <div class="bg-white p-3 p-lg-5 border">
                         <table class="site-block-order-table mb-5 table">
                             <thead>
-                                <th>Product</th>
+                                <th>Produk</th>
                                 <th>Total</th>
                             </thead>
                             <tbody>
@@ -43,8 +43,8 @@
                         </table>
 
                         <div class="form-group">
-                            <button class="btn-block py-3 btn btn-black btn-lg" id="placeOrderBtn" type="button">Place
-                                Order</button>
+                            <button class="btn-block py-3 btn btn-black btn-lg" id="placeOrderBtn" type="button">Memesan 
+                                </button>
                         </div>
 
                     </div>
@@ -83,7 +83,7 @@
                         success: function(response) {
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Order Successfully',
+                                title: 'Order Berhasil!!!',
                                 text: response.message, // Pesan sukses dari server
                             }).then(function() {
                                 var redirectUrl = response.redirect_url;

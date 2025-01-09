@@ -7,7 +7,7 @@
 <div class="untree_co-section before-footer-section">
 
     <div class="container">
-        <h1 style="margin-left: 70px;margin-top: 0px;color: black;font-size:50px" class="d-block">Cart</h1>
+        <h1 style="margin-left: 70px;margin-top: 0px;color: black;font-size:50px" class="d-block">Keranjang Anda</h1>
         <div class="row mb-5">
             <div class="site-blocks-table">
                 <table class="table">
@@ -15,12 +15,12 @@
                         <tr>
                             <th> <input type="checkbox" id="checkAll">
                             </th>
-                            <th class="product-thumbnail">Image</th>
-                            <th class="product-name">Product</th>
-                            <th class="product-price">Price</th>
-                            <th class="product-quantity">Quantity</th>
+                            <th class="product-thumbnail">Gambar</th>
+                            <th class="product-name">Produk</th>
+                            <th class="product-price">Harga</th>
+                            <th class="product-quantity">Jumlah</th>
                             <th class="product-total">Total</th>
-                            <th class="product-remove">Remove</th>
+                            <th class="product-remove">Hapus</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -118,8 +118,9 @@
             <div class="col-md-6">
                 <div class="row mb-5">
                     <div class="col-md-6">
-                        <a href="{{ route('Produk.index') }}" class="btn btn-outline-black btn-sm btn-block">Continue
-                            Shopping</a>
+                        <a href="{{ route('Produk.index') }}" class="btn btn-outline-black btn-sm btn-block">Lanjut
+                            berbelanja
+                        </a>
                     </div>
                 </div>
             </div>
@@ -132,7 +133,7 @@
                     <input type="hidden" name="selected_items" id="selectedItemsInput">
 
                     <button class="btn btn-black btn-lg py-3 btn-block" type="submit">
-                        Proceed To Checkout
+                        Prosses untuk Checkout
                     </button>
                 </form>
             </div>

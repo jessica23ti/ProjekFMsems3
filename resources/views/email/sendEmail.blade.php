@@ -75,6 +75,10 @@
 
 <body>
     <div class="container">
+        @php
+            use Carbon\Carbon;
+        @endphp
+
         <h1>{{ $data['text'] }}</h1>
         <p>Pesanan Anda telah berhasil diproses. Berikut adalah detail pesanan Anda:</p>
 
@@ -82,7 +86,9 @@
             <p>Nomor Pesanan: <strong>{{ $data['order_id'] }}</strong></p>
             <p>Total Belanja: <strong>Rp {{ number_format($data['total'], 0, ',', '.') }}</strong></p>
             <p>Total Item: <strong>{{ $data['total_item'] }}</strong></p>
-            <p>Tanggal Pemesanan: <strong>{{ $data['tgl'] }}</strong></p>
+            <p>Tanggal Pemesanan:
+                <strong>{{ \Carbon\Carbon::parse($data['tgl'])->translatedFormat(' d F Y') }}</strong>
+            </p>
         </div>
 
         <p>Terima kasih telah berbelanja di toko kami!</p>

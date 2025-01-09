@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Carbon\Carbon;
 
 class PaymentController extends Controller
 {
@@ -200,7 +201,7 @@ class PaymentController extends Controller
 
             // Mengembalikan response sukses dengan URL redirect
             return response()->json([
-                'message' => 'Your order has been successfully processed!',
+                'message' => 'Order mu berhasil Di proses!',
                 'redirect_url' => route('ViewCheckout', ['selectedID' => implode(',', $orderIds)]), // Menggabungkan ID menjadi string dan menambahkannya ke URL
             ]);
         } else {

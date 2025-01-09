@@ -37,7 +37,7 @@
         <br><br>
         <div class="row">
             <div class="mb-5 mb-md-0 col-md-7">
-                <h2 class="mb-3 text-black h3">Details </h2>
+                <h2 class="mb-3 text-black h3">Detail </h2>
                 <form action="{{ route('hitungOngkir') }}" method="POST">
                     @csrf
                     <div class="bg-white p-3 p-lg-5 border">
@@ -87,7 +87,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="c_address" class="text-black">Shipping Address <span
+                            <label for="c_address" class="text-black">Alamat Pengataran <span
                                     class="text-danger">*</span></label>
                             <input type="text" class="form-control" id="c_address" name="c_address"
                                 placeholder="Street address">
@@ -101,14 +101,14 @@
 
                         <div class="form-group row">
                             <div class="col-md-6">
-                                <label for="c_postal_zip" class="text-black">Postal Code / Zip <span
+                                <label for="c_postal_zip" class="text-black">Kode Pos <span
                                         class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="c_postal_zip" name="postal">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="c_order_notes" class="text-black">Order Notes</label>
+                            <label for="c_order_notes" class="text-black">Catatan Order</label>
                             <textarea name="c_order_notes" id="c_order_notes" cols="30" rows="5" class="form-control"
                                 placeholder="Write your notes here..."></textarea>
                         </div><br>
